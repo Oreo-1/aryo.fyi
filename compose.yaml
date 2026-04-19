@@ -1,0 +1,6 @@
+services:
+  aryo-fyi:
+    image: aryo-fyi:latest
+    ports:
+      - "8054:80"
+    restart: unless-stopped

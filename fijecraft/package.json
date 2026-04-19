@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "wrangler-deploy": "wrangler pages deploy . --project-name=\"fijecraft\" --branch \"production\""
+  },
+  "devDependencies": {
+    "wrangler": "^4.83.0"
+  }
+}

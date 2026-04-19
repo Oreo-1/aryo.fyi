@@ -1,0 +1,15 @@
+{
+  "name": "aryo.fyi",
+  "version": "1.0.0",
+  "description": "content for root domain",
+  "main": "index.js",
+  "scripts": {
+    "serve": "serve -p 8054"
+  },
+  "keywords": [],
+  "author": "Aryo",
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "serve": "^14.2.6"
+  }
+}

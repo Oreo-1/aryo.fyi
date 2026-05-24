@@ -1,9 +1,527 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>apa</title>
-    </head>
-    <body>
-        <h2>under construction :p</h2>
-    </body>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="just a linux enthusiast's web portfolio.">
+    <title>aryo.fyi</title>
+
+    <link rel="icon" href="assets/favi.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    
+    <link rel="stylesheet" href="assets/style.css" />
+
+    <link href="assets/fonts/gfont_fira-sans.css" rel="stylesheet" />
+</head>
+
+<body class="bg-color text-light" id="yuusha" data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50" tabindex="0">
+
+    <!-- navigation bar! -->
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top mica-navbar mt-4">
+        <div class="container">
+
+            <a class="navbar-brand ms-2 brandstyle" href="#yuusha">
+                <!-- Δryo -->
+                aryo.fyi
+            </a>
+
+            <button 
+                class="navbar-toggler ms-auto border-0 shadow-none"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <img 
+                    src="assets/chevron-direction-bottom-icon.svg"
+                    alt="menu"
+                    class="toggler-icon invert-color"
+                >
+            </button>
+
+            <!-- NAV CONTENT -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto align-items-sm-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-1" href="#skillset">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-1" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-1" href="#contactme">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-light btn-sm cv-btn">
+                            Download CV
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+<!-- vanta-bg: purely the animated background, fixed -->
+<div id="vanta-bg"></div>
+<div class="is-there-a-better-way-to-do-this"></div>
+
+<!-- darkmode lightmode toggle -->
+<button type="button" id="toggle-darkmode-lightmode" aria-label="Toggle dark mode" aria-pressed="false" class="top-0 end-0 tdmlm-btn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" style="overflow:visible">
+    <circle id="core" cx="12" cy="12" r="5" fill="currentColor"/>
+    <g id="rays" style="transform-origin:12px 12px;transition:opacity 0.35s,transform 0.5s cubic-bezier(.4,0,.2,1)">
+      <line x1="12" y1="2"  x2="12" y2="5"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="12" y1="19" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="2"  y1="12" x2="5"  y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="19" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <circle id="crater" cx="16" cy="9" r="3.5" style="opacity:0"/>
+  </svg>
+</button>
+
+<!-- lowkey a bit hacky -->
+<section class="vh-100 d-flex align-items-center justify-content-center text-center" style="position: relative; z-index: 2;">
+    <div class="container"> 
+        <div class="row align-items-center justify-content-center text-md-start">
+            <div class="col-12 col-md-6">
+                <h1 class="display-2 fw-bold kewl-gradient-text">Aryo Karel M.</h1>
+                <!-- <p class="fs-4 fw-bold">Operating System | Fullstack Developer | UI/UX Designer</p> -->
+                <div class="cycling-text-wrapper">
+                    <p class="display-4 kewl-gradient-text cycling-text c-active">System Administration</p>
+                    <p class="display-4 kewl-gradient-text cycling-text">DevOps</p>
+                    <p class="display-4 kewl-gradient-text cycling-text">Operating System</p>
+                    <p class="display-4 kewl-gradient-text cycling-text">Linux Enthusiast</p>
+                    <p class="display-4 kewl-gradient-text cycling-text">Mobile Development</p>
+                    <p class="display-4 kewl-gradient-text cycling-text">Web Development</p>
+                </div>
+
+                <!-- <hr class="border-2 opacity-25"> -->
+
+                <p class="fs-5">
+                    Informatics student with interests in system administration,
+                    DevOps, and full-stack development.
+                    <!-- I primarily develop in linux. -->
+                </p>
+
+                <p class="fs-5 fw-bold">Find me on</p>
+                <div class="d-flex justify-content-center justify-content-md-start gap-3 mt-3">
+                    <a href="https://github.com/Oreo-1" target="_blank" class="social-icon">
+                        <img src="assets/icons/github-icon.svg" class="invert-color">
+                    </a>
+                    <!-- <a href="#" target="_blank" class="social-icon">
+                        <img src="assets/icons/github-icon.svg">
+                    </a>
+                    <a href="#" target="_blank" class="social-icon">
+                        <img src="assets/icons/github-icon.svg">
+                    </a> -->
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <img src="assets/anak_alim.png" class="img-fluid rounded-profile-img" alt="me">
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- skill card section -->
+    <section class="py-5 mb-4" id="skillset">
+        <div class="container container-custom">
+            <h1>Skills</h1>
+            <p class="mb-4">What I Can Do</p>
+    
+            <div class="row g-4">
+    
+                <!-- skill card 1 -->
+                <div class="col-md-4">
+                    <div class="card mica-card h-100">
+    
+                        <div class="card-body">
+                            <img src="assets/icons/undraw_server-cluster_7ugi.svg" class="d-block mx-auto" alt="system administration">
+                            <h3 class="card-title mt-3">
+                                System
+                                    <br class="mobile-hide">
+                                Administration
+                            </h3>
+    
+                            <p class="card-text">
+                                Proficient in system administration, including
+                                server setup, maintenance, and troubleshooting.
+                            </p>
+    
+                            <!-- <a href="#" class="btn btn-light">
+                                Learn More
+                            </a> -->
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <!-- skill card 2 -->
+                <div class="col-md-4">
+                    <div class="card mica-card h-100">
+    
+                        <div class="card-body">
+                            <img src="assets/icons/undraw_in-sync_3wdt.svg" class="d-block mx-auto" alt="fullstack development">
+                            <h3 class="card-title mt-3">
+                                Fullstack
+                                    <br class="mobile-hide">
+                                Development
+                            </h3>
+    
+                            <p class="card-text">
+                                Creating user-friendly and adaptable web-based, desktop, or mobile applications.
+                            </p>
+    
+                            <!-- <a href="#" class="btn btn-light">
+                                Learn More
+                            </a> -->
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <!-- skill card 3 -->
+                <div class="col-md-4">
+                    <div class="card mica-card h-100">
+    
+                        <div class="card-body">
+                            <img src="assets/icons/undraw_building-websites_k2zp.svg" class="d-block mx-auto" alt="website development">
+                            <h3 class="card-title mt-3">
+                                Website
+                                    <br class="mobile-hide">
+                                Development
+                            </h3>
+    
+                            <p class="card-text">
+                                Designing elegant and responsive web interfaces with
+                                and modern user experiences.
+                            </p>
+    
+                            <!-- <a href="#" class="btn btn-light">
+                                Learn More
+                            </a> -->
+                        </div>
+    
+                    </div>
+                </div>
+    
+            </div>
+    
+        </div>
+    </section>
+    
+    <!-- tools and tech stack section -->
+    <section class="py-5 mb-4">
+    
+        <div class="container container-custom">
+            <h2>Tools &amp; Technologies</h2>
+            <p class="mb-4">Tech Stacks I Primarily Work With</p>
+
+            <!-- first row -->
+            <div class="row g-5 mb-5">
+            
+                <div class="col-12">
+
+                    <h5 class="category-title">DevOps &amp; Server</h5>
+                    <hr class="border-1 opacity-25" />
+            
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="tech-card">
+                                <img src="assets/icons/docker-icon.svg" alt="Docker" />
+                                <div class="tech-name">Docker</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="tech-card">
+                                <img src="assets/icons/git-icon.svg" alt="Git" />
+                                <div class="tech-name">Git</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="tech-card">
+                                <img src="assets/icons/ubuntu-icon.svg" alt="Ubuntu" />
+                                <div class="tech-name">Ubuntu/Debian</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="tech-card">
+                                <img src="assets/icons/cloudflare-icon.svg" alt="Cloudflare" />
+                                <div class="tech-name">Cloudflare</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="tech-card">
+                                <img src="assets/icons/nginx-icon.svg" alt="Nginx" />
+                                <div class="tech-name">Nginx</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="tech-card">
+                                <img src="assets/icons/fastapi-icon.svg" alt="FastAPI" />
+                                <div class="tech-name">FastAPI</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            
+            </div>
+    
+            <!-- second row-->
+            <div class="row g-5 mb-5">
+    
+                <div class="col-12 col-lg-6">
+                    <h5 class="category-title">Web Development</h5>
+                    <hr class="border-1 opacity-25" />
+                    <div class="row g-3">
+                        <div class="col-4">
+                            <div class="tech-card">
+                                <img src="assets/icons/typescript-icon.svg"
+                                    alt="TypeScript" />
+                                <div class="tech-name">TypeScript</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="tech-card">
+                                <img src="assets/icons/nodejs-icon.svg"
+                                    alt="Node.js" />
+                                <div class="tech-name">Node.js</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="tech-card">
+                                <img src="assets/icons/bootstrap-icon.svg"
+                                    alt="Bootstrap" />
+                                <div class="tech-name">Bootstrap</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+    
+                <div class="col-12 col-lg-6">
+                    <h5 class="category-title">Cross Platform Development</h5>
+                    <hr class="border-1 opacity-25" />
+                    <div class="row g-3">
+                        <div class="col-4">
+                            <div class="tech-card">
+                                <img src="assets/icons/flutter-icon.svg"
+                                    alt="Flutter" />
+                                <div class="tech-name">Flutter</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="tech-card">
+                                <img src="assets/icons/electron-icon.svg"
+                                    alt="Electron" />
+                                <div class="tech-name">Electron</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="tech-card">
+                                <img src="assets/icons/tauri-icon.svg"
+                                    alt="Tauri" />
+                                <div class="tech-name">Tauri</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+            
+        </div>
+    </section>
+
+    <section class="py-5 mb-4" id="projects">
+        <div class="container container-custom">
+            <h1 >Projects</h1>
+            <p class="mb-4">Projects I'm involved with.</p>
+        </div>
+
+            <div class="swiper projects-section-swiper pt-3">
+                <div class="swiper-wrapper">
+
+                    <!-- project card 1 -->
+                    <div class="swiper-slide">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Project One</h5>
+                                <p class="card-text">bla bla bla
+                                </p>
+                                <div class="d-flex gap-2 flex-wrap mb-3">
+                                    <span class="badge bg-secondary">React</span>
+                                    <span class="badge bg-secondary">Node.js</span>
+                                    <span class="badge bg-secondary">MongoDB</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- project card 2 -->
+                    <div class="swiper-slide">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Project Two</h5>
+                                <p class="card-text">bla bla bla
+                                </p>
+                                <div class="d-flex gap-2 flex-wrap mb-3">
+                                    <span class="badge bg-secondary">Vue</span>
+                                    <span class="badge bg-secondary">Firebase</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- project card 3 -->
+                    <div class="swiper-slide">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Project Three</h5>
+                                <p class="card-text">bla bla bla
+                                </p>
+                                <div class="d-flex gap-2 flex-wrap mb-3">
+                                    <span class="badge bg-secondary">Python</span>
+                                    <span class="badge bg-secondary">Django</span>
+                                    <span class="badge bg-secondary">PostgreSQL</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- project card 4 -->
+                    <div class="swiper-slide">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 4">
+                            <div class="card-body">
+                                <h5 class="card-title">Project Four</h5>
+                                <p class="card-text">bla bla bla
+                                </p>
+                                <div class="d-flex gap-2 flex-wrap mb-3">
+                                    <span class="badge bg-secondary">Next.js</span>
+                                    <span class="badge bg-secondary">Tailwind</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- psst add more cards here -->
+
+                </div>
+
+                <!-- Navigation & Pagination -->
+            </div>
+
+            <div class="swiper-pagination mt-3"></div>
+
+        </div>
+    </section>
+
+    <!-- contact me! -->
+    <section class="py-5 my-5 kontek d-flex flex-column align-items-center justify-content-center text-center" id="contactme">
+        <div class="container container-custom">
+            <h1 class="display-3 fw-bold text-center">Let's work together</h1>
+            <p class="mb-4 text-center">
+                Have an idea or project in mind? Shoot me an email<br>
+                or contact me on twitter :D
+            </p>
+        </div>
+    </section>
+    
+    <!-- foooooooter part -->
+    <section class="pt-5">
+        <footer class="mica-footer py-5 mt-5">
+            <div class="container">
+
+                <div class="row align-items-center">
+
+                    <div class="col-lg-4 mb-4 mb-lg-0 text-lg-start text-center">
+                        <h3 class="footer-logo" style="letter-spacing: 1.4px;">
+                            aryo.fyi
+                        </h3>
+                        <p class="footer-text">
+                            i use <a href="https://archlinux.org/" target="_blank" rel="noopener noreferrer">arch linux</a> btw.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-4 mb-4 mb-lg-0 text-center">
+                        <h5 class="footer-title">
+                            Quick Links
+                        </h5>
+                        <ul class="footer-links list-unstyled">
+                            <li>
+                                <a href="#skillset">Skills</a>
+                            </li>
+                            <li>
+                                <a href="#projects">Projects</a>
+                            </li>
+                            <li>
+                                <a href="#contactme">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 text-lg-end text-center">
+                        <img src="assets/favi.png" class="opacity-75" style="width: 20%;" alt="logo">
+                    </div>
+
+                    
+                </div>
+
+                <hr class="footer-divider">
+
+                <!-- Bottom -->
+                <div class="text-center footer-copy">
+                    © 2025 Oreo-1
+                </div>
+
+            </div>
+
+        </footer>
+    </section>
+
+    <script src="assets/threejs/threejs.js"></script>
+    <script src="assets/threejs/vanta_net.js"></script>
+    <!-- <script src="assets/threejs/vanta_globe.js"></script>
+    <script src="assets/threejs/vanta_dots.js"></script> -->
+    <script src="assets/threejs/vanta_waves.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/main.js"></script>
+
+</body>
+
 </html>

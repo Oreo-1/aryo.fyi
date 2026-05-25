@@ -16,17 +16,18 @@
     <link href="assets/fonts/gfont_fira-sans.css" rel="stylesheet" />
 </head>
 
-<body class="bg-color text-light" id="yuusha" data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50" tabindex="0">
+<body class="bg-color text-light" data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50" tabindex="0">
 
     <!-- navigation bar! -->
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top mica-navbar mt-4">
         <div class="container">
 
-            <a class="navbar-brand ms-2 brandstyle" href="#yuusha">
+            <a class="navbar-brand brandstyle" id="yuusha">
                 <!-- Δryo -->
                 aryo.fyi
             </a>
 
+            <!-- chevron -->
             <button 
                 class="navbar-toggler ms-auto border-0 shadow-none"
                 type="button"
@@ -48,13 +49,19 @@
                 <ul class="navbar-nav mx-auto align-items-sm-center">
 
                     <li class="nav-item">
-                        <a class="nav-link mx-1" href="#skillset">Skills</a>
+                        <a class="nav-link mx-1 navnavnav" id="navSkill">
+                            Skills
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-1" href="#projects">Projects</a>
+                        <a class="nav-link mx-1 navnavnav" id="navProjects">
+                            Projects
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-1" href="#contactme">Contact</a>
+                        <a class="nav-link mx-1 navnavnav" id="navContact">
+                            Contact
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="btn btn-light btn-sm cv-btn">

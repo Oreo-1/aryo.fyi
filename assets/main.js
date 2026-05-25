@@ -1,4 +1,44 @@
-// cool background animations :3
+//   _  _          _           _   _          
+//  | \| |__ ___ _(_)__ _ __ _| |_(_)___ _ _  
+//  | .` / _` \ V / / _` / _` |  _| / _ \ ' \ 
+//  |_|\_\__,_|\_/|_\__, \__,_|\__|_\___/_||_|
+//                  |___/                     
+
+// to top of page
+document.getElementById("yuusha").addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
+// skillset section
+document.getElementById("navSkill").addEventListener("click", () => {
+  document.getElementById("skillset").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+// to projects section
+document.getElementById("navProjects").addEventListener("click", () => {
+  document.getElementById("projects").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+// to contact section
+document.getElementById("navContact").addEventListener("click", () => {
+  document.getElementById("contactme").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+//    ___          _   ___           _        _            _   _               _ ____
+//   / __|___  ___| | | _ ) __ _    /_\  _ _ (_)_ __  __ _| |_(_)___ _ _  ___ (_)__ /
+//  | (__/ _ \/ _ \ | | _ \/ _` |  / _ \| ' \| | '  \/ _` |  _| / _ \ ' \(_-<  _ |_ \
+//   \___\___/\___/_| |___/\__, | /_/ \_\_||_|_|_|_|_\__,_|\__|_\___/_||_/__/ (_)___/
+//                         |___/                                                     
+
 let isDarkMode = true;
 
 const DARK_MODE = 0x121212;
@@ -54,10 +94,15 @@ function smoothSwitch(from, to, duration = 225) {
   requestAnimationFrame(animate);
 }
 
+//    __                     _ _      _   _        _          _     _         _   _            
+//   / _|__ _ _ _  __ _  _  | (_)__ _| |_| |_   __| |__ _ _ _| |__ | |__ _  _| |_| |_ ___ _ _  
+//  |  _/ _` | ' \/ _| || | | | / _` | ' \  _| / _` / _` | '_| / / | '_ \ || |  _|  _/ _ \ ' \ 
+//  |_| \__,_|_||_\__|\_, | |_|_\__, |_||_\__| \__,_\__,_|_| |_\_\ |_.__/\_,_|\__|\__\___/_||_|
+//                    |__/      |___/                                                          
+
 // sun/moon SVG icon refs, expects these elements inside the button
-// fancy light dark button
-const iconCore   = document.getElementById("core");
-const iconRays   = document.getElementById("rays");
+const iconCore = document.getElementById("core");
+const iconRays = document.getElementById("rays");
 const iconCrater = document.getElementById("crater");
 
 function setIconSun() {
@@ -123,27 +168,31 @@ setInterval(cycleText, 3200);
 document.addEventListener("DOMContentLoaded", function () {
   setIconMoon(); // start in dark mode
 
-    const navbar = document.querySelector(".mica-navbar");
-    const collapse = document.getElementById("navbarNav");
+  const navbar = document.querySelector(".mica-navbar");
+  const collapse = document.getElementById("navbarNav");
 
-    collapse.addEventListener("show.bs.collapse", function () {
-        navbar.classList.add("menu-open");
-    });
+  collapse.addEventListener("show.bs.collapse", function () {
+    navbar.classList.add("menu-open");
+  });
 
-    collapse.addEventListener("hide.bs.collapse", function () {
-        navbar.classList.remove("menu-open");
-    });
+  collapse.addEventListener("hide.bs.collapse", function () {
+    navbar.classList.remove("menu-open");
+  });
 
 });
 
-// projects section swiper.js
+//                 _        _                  _                 _    
+//   _ __ _ _ ___ (_)___ __| |_ ___  ____ __ _(_)_ __  ___ _ _  (_)___
+//  | '_ \ '_/ _ \| / -_) _|  _(_-< (_-< V  V / | '_ \/ -_) '_| | (_-<
+//  | .__/_| \___// \___\__|\__/__/ /__/\_/\_/|_| .__/\___|_|(_)/ /__/
+//  |_|         |__/                            |_|           |__/    
 const projectsSwiper = new Swiper('.projects-section-swiper', {
   slidesPerView: 1,
   spaceBetween: 24,
 
   loop: true,
   speed: 3500,
-  cssEase: 'ease-in-out', 
+  cssEase: 'ease-in-out',
   autoplay: {
     delay: 0,
     disableOnInteraction: false,
@@ -167,7 +216,6 @@ const projectsSwiper = new Swiper('.projects-section-swiper', {
     992: { slidesPerView: 3 },
   },
 
-  // keep or remove nav/pagination as you like
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',

@@ -145,9 +145,12 @@ a {
 
     letter-spacing: 1.4px;
     /* for aryo.fyi */
+    
     font-weight: bolder;
     font-size: x-large;
     transition: transform 0.2s ease, color 0.2s ease;
+
+    /* margin-left: .5rem; */
 }
 
 .brandstyle:hover {
@@ -175,6 +178,11 @@ a {
 .mica-navbar .navbar-brand {
     position: absolute;
     left: 2rem;
+    cursor: pointer;
+}
+
+.mica-navbar .navnavnav {
+    cursor: pointer;
 }
 
 .mica-navbar .btn {
@@ -214,7 +222,7 @@ a {
 
         transition: opacity 0.35s ease;
     }
-
+    
     .mica-navbar.menu-open .navbar-brand {
         opacity: 0;
         pointer-events: none;
@@ -236,6 +244,10 @@ a {
 
     .mica-navbar.menu-open .navbar-brand {
         opacity: 0;
+
+        /* ↓↓↓ COAL ALERT ↓↓↓ */
+        margin-left: 0.6rem;
+
         transform: translateX(-10px);
     }
 
@@ -243,6 +255,10 @@ a {
         opacity: 1;
         pointer-events: auto;
         transform: translateY(-50%) translateX(0);
+    }
+
+    .menu-open {
+        padding-bottom: 2.3rem;
     }
 }
 
@@ -303,6 +319,7 @@ section {
     border-radius: 50%;
     object-fit: cover;
     display: block;
+    height: 400px;
 }
 
 /*       

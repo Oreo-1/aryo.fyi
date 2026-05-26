@@ -1,7 +1,7 @@
 # aryo.fyi
-root domain conent
+root domain content
 
-##
+## web portfolio
 personal web portfolio
 
 made with:

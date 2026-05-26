@@ -40,7 +40,7 @@ body {
         max-width: 100%;
         overflow-x: hidden;
     }
-    #yuusha {
+    #initial-pt {
         padding-top: 20vh;
     }
     .mobile-hide {
@@ -319,7 +319,9 @@ section {
     border-radius: 50%;
     object-fit: cover;
     display: block;
+
     height: 400px;
+    width: auto
 }
 
 /*       
@@ -578,15 +580,31 @@ section {
                                             
 */
 
+.kontek {
+    min-height: 80vh;
+}
+
 .contactme-btn {
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    padding: 13px 37px;
+    border-width: 2px;
+    max-width: 200px;
+    border-style: solid;
+    background: var(--glass-bg);
+    border-radius: var(--glass-radius);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+
+    font-size: 1.5rem;
+    font-weight: medium;
 }
 
-.kontek {
-    min-height: 50vh;
+.contactme-btn:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-shadow-hover);
+    transform: translateY(-10px);
 }
-
 
 /*
   ___         _           

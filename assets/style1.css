@@ -2,17 +2,24 @@
 
     /* --background-color: #121212; */
 
+    /* main theme: glassmorphism */
     --glass-bg: rgba(255, 255, 255, 0.06);
     --glass-bg-hover: rgba(255, 255, 255, 0.09);
     --glass-border: rgba(255, 255, 255, 0.12);
     --glass-border-hover: rgba(255, 255, 255, 0.22);
-    --glass-blur: blur(18px) saturate(180%);
+    --glass-blur: blur(15px) saturate(140%);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     --glass-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.22);
     --glass-radius: 20px;
     --btn-bg: rgba(255, 255, 255, 0.12);
     --btn-bg-hover: rgba(255, 255, 255, 0.2);
     --btn-border: rgba(255, 255, 255, 0.15);
+
+    /* gold */
+    --gold-bg: rgba(212, 175, 55, 0.18);
+    --gold-border: rgba(212, 175, 55, 0.55);
+    --gold-text: #f6df8d;
+    --gold-shadow: rgba(212, 175, 55, 0.12);
 
     /* swiperjs */
     --swiper-pagination-color: #fefefe; /* Color of the ACTIVE dot */
@@ -41,7 +48,7 @@ body {
         overflow-x: hidden;
     }
     #initial-pt {
-        padding-top: 20vh;
+        padding-top: 25vh; /* gem alert? */
     }
     .mobile-hide {
         display: none;
@@ -203,12 +210,25 @@ a {
     border: 1px solid var(--btn-border);
     color: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+
+    min-width: 150px;
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
 }
 
 .mica-navbar .btn:hover {
     background: rgba(255, 255, 255, 0.23);
     border-color: rgba(255, 255, 255, 0.25);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+
+    transform: translateY(calc(-50% - 2px));
+}
+
+.mica-navbar .btn:active {
+    color: white;
 }
 
 @media (max-width: 576px) {
@@ -333,10 +353,28 @@ section {
 */
 
 .social-icon img {
-  display: block;
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.93;
+
+    transform: translateY(0);
+    transition: transform 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
+
+}
+
+.social-icon img:hover {
+    transform: translateY(-5px)
+}
+
+@media (max-width: 576px) {
+    .social-icons-wrapper{
+        margin-bottom: 5vh;
+    }
+    #skillset { /* coal alert? */
+        margin-top: 10vh;
+    }
 }
 
 .kewl-gradient-text {
@@ -505,6 +543,8 @@ section {
 
 .projects-section-swiper .card {
     height: 100%;
+    min-height: 500px;
+
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
@@ -518,6 +558,8 @@ section {
         box-shadow 0.35s ease,
         background 0.35s ease;
     position: relative;
+
+    cursor: default;
 }
 
 .projects-section-swiper .card:hover {
@@ -532,13 +574,41 @@ section {
 
 .projects-section-swiper .card-img-top {
     height: 220px;
+
     object-fit: cover;
+
+    border-top-left-radius: var(--glass-radius);
+    border-top-right-radius: var(--glass-radius);
+}
+
+.projects-section-swiper .card-img-alternative {
+    height: 220px;
+
+    object-fit: contain;
+    margin: 0 12px;
+
+    border-top-left-radius: var(--glass-radius);
+    border-top-right-radius: var(--glass-radius);
+}
+
+.projects-section-swiper .card-img-alternative-alternative {
+    height: 220px;
+
+    object-fit: cover;   /* Scale the image to fill the box */
+    object-position: top;
+
     border-top-left-radius: var(--glass-radius);
     border-top-right-radius: var(--glass-radius);
 }
 
 .projects-section-swiper .card-body {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.projects-section-swiper .card-text {
+    flex-grow: 1;
 }
 
 .projects-section-swiper .badge {
@@ -548,6 +618,19 @@ section {
     border-radius: 50px;
     font-weight: 500;
     backdrop-filter: var(--glass-blur);
+}
+
+.projects-section-swiper .badge-gold {
+    background: var(--gold-bg) !important;
+    border: 1px solid var(--gold-border);
+    color: var(--gold-text);
+
+    padding: 0.5rem 0.8rem;
+    border-radius: 50px;
+    font-weight: 500;
+    backdrop-filter: var(--glass-blur);
+
+    box-shadow: 0 4px 14px var(--gold-shadow);
 }
 
 .projects-section-swiper .btn-primary {
@@ -571,6 +654,118 @@ section {
     border-color: var(--glass-border-hover);
     color: var(--glass-text-hover);
 }
+
+.projects-section-swiper .btn {
+  transition: transform 0.1s ease,
+              background 0.1s ease,
+              border-color 0.1s ease,
+              color 0.1s ease;
+  will-change: transform, background-color;
+}
+
+/* experience timeline*/
+.timeline {
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0.5rem;
+    width: 2px;
+    background: linear-gradient(to bottom,
+            var(--glass-border-hover),
+            var(--glass-border));
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.75rem;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    top: 1.5rem;
+    left: -2.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    border: 3px solid rgba(22, 33, 62, 1);
+    /* matches page bg so dot pops off the line */
+    box-shadow: 0 0 0 2px var(--glass-border-hover), 0 0 12px rgba(255, 255, 255, 0.25);
+    z-index: 1;
+}
+
+.timeline-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+
+    box-shadow: var(--glass-shadow);
+
+    padding: 1.5rem 1.75rem;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.timeline-card:hover {
+    transform: translateY(-6px);
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-shadow-hover);
+}
+
+.timeline-date {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+
+    padding: 0.3rem 0.9rem;
+    border-radius: 50px;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 0.75rem;
+}
+
+.timeline-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 0.15rem;
+    color: #fff;
+}
+
+.timeline-subtitle {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 0.75rem;
+}
+
+.timeline-description {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
 
 /*
    ___         _           _     __  __     
@@ -628,6 +823,19 @@ section {
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     
+}
+
+/* miscellaneous-ish */
+.tilt-card.is-hovering {
+    transition: transform 0.05s linear, box-shadow 0.3s ease;
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-shadow-hover);
+}
+
+    /* optional: gives inner content a slight pop-out feel.
+       remove translateZ if you don't want layered depth. */
+.tilt-card > * {
+    transform: translateZ(20px);
 }
 
 /* grid background test */

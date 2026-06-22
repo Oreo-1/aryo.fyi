@@ -191,8 +191,8 @@ const projectsSwiper = new Swiper('.projects-section-swiper', {
   spaceBetween: 24,
 
   loop: true,
-  speed: 3500,
-  cssEase: 'ease-in-out',
+  speed: 15000,
+  cssEase: 'linear',
   autoplay: {
     delay: 0,
     disableOnInteraction: false,
@@ -224,6 +224,39 @@ const projectsSwiper = new Swiper('.projects-section-swiper', {
     el: '.swiper-pagination',
     clickable: true,
   },
+});
+
+//   _______    ___               _ _          
+//  |__ /   \  | _ \__ _ _ _ __ _| | |__ ___ __
+//   |_ \ |) | |  _/ _` | '_/ _` | | / _` \ \ /
+//  |___/___/  |_| \__,_|_| \__,_|_|_\__,_/_\_\
+document.querySelectorAll('[data-tilt]').forEach((card) => {
+  const maxTilt = 12;       // degrees, don't forget to keep this subtle :v
+  const scaleOnHover = 1.02;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -maxTilt;
+    const rotateY = ((x - centerX) / centerX) * maxTilt;
+
+    card.style.transform =
+      `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scaleOnHover})`;
+  });
+
+  card.addEventListener('mouseenter', () => {
+    card.classList.add('is-hovering');
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.classList.remove('is-hovering');
+    card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+  });
 });
 
 // vanta.js graveyard

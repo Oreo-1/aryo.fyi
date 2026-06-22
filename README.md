@@ -17,5 +17,7 @@ or yk what, custom api
 
 absolutely zero regard of mobile lighthouse performance (i'm sorry)
 
+restructure imminent!!! (i hope) it's getting hard to navigate!
+
 ## fijecraft
 https://aryo.fyi/fijecraft

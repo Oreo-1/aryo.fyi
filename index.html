@@ -64,8 +64,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="btn btn-light btn-sm cv-btn">
-                            Download CV
+                        <a href="files/wario.pdf" target="_blank" class="btn btn-light btn-sm cv-btn brandstyle">
+                            View CV
                         </a>
                     </li>
 
@@ -79,7 +79,7 @@
 <div id="vanta-bg"></div>
 <div class="is-there-a-better-way-to-do-this"></div>
 
-<!-- darkmode lightmode toggle -->
+<!-- darkmode lightmode toggle (FIX soon) -->
 <button type="button" id="toggle-darkmode-lightmode" aria-label="Toggle dark mode" aria-pressed="false" class="top-0 end-0 tdmlm-btn">
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" style="overflow:visible">
     <circle id="core" cx="12" cy="12" r="5" fill="currentColor"/>
@@ -99,6 +99,7 @@
 
 <!-- lowkey a bit hacky -->
 <section class="vh-100 d-flex align-items-center justify-content-center text-center" style="position: relative; z-index: 2;" id="initial-pt">
+
     <div class="container"> 
         <div class="row align-items-center justify-content-center text-md-start">
             <div class="col-12 col-md-6">
@@ -121,17 +122,17 @@
                     <!-- I primarily develop in linux. -->
                 </p>
 
-                <p class="fs-5 fw-bold">Find me on</p>
-                <div class="d-flex justify-content-center justify-content-md-start gap-3 mt-3">
-                    <a href="https://github.com/Oreo-1" target="_blank" class="social-icon">
+                <p class="fs-3 fw-bold mt-5">Find me on</p>
+                <div class="d-flex justify-content-center justify-content-md-start gap-3 mt-3 social-icons-wrapper">
+                    <a href="https://www.linkedin.com/in/aryo-karel-merentek/" target="_blank" class="social-icon" alt="linkedin-icon">
+                        <img src="assets/icons/linkedin-icon.svg">
+                    </a>
+                    <a href="https://instagram.com/aryo.km" target="_blank" class="social-icon">
+                        <img src="assets/icons/Instagram_logo_2016.svg" alt="instagram-icon">
+                    </a>
+                    <a href="https://github.com/Oreo-1" target="_blank" class="social-icon" alt="github-icon">
                         <img src="assets/icons/github-icon.svg" class="invert-color">
                     </a>
-                    <!-- <a href="#" target="_blank" class="social-icon">
-                        <img src="assets/icons/github-icon.svg">
-                    </a>
-                    <a href="#" target="_blank" class="social-icon">
-                        <img src="assets/icons/github-icon.svg">
-                    </a> -->
                 </div>
             </div>
             <div class="col-12 col-md-4">
@@ -139,6 +140,7 @@
             </div>
         </div>
     </div>
+    
 </section>
 
     <!-- skill card section -->
@@ -229,7 +231,7 @@
     </section>
     
     <!-- tools and tech stack section -->
-    <section class="py-5 mb-4">
+    <section class="py-5">
     
         <div class="container container-custom">
             <h2>Tools &amp; Technologies</h2>
@@ -351,113 +353,314 @@
         </div>
     </section>
 
-    <section class="py-5 mb-4" id="projects">
-        <div class="container container-custom">
-            <h1 >Projects</h1>
-            <p class="mb-4">Projects I'm involved with.</p>
-        </div>
+<!-- experience section -->
+<section class="py-5">
+    <div class="container container-custom">
+        <h2>Experience</h2>
+        <p class="pb-3">My professional journey and roles.</p>
+    </div>
 
-            <div class="swiper projects-section-swiper pt-3">
-                <div class="swiper-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
 
-                    <!-- project card 1 -->
-                    <div class="swiper-slide">
-                        <div class="card h-100">
-                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Project One</h5>
-                                <p class="card-text">bla bla bla
-                                </p>
-                                <div class="d-flex gap-2 flex-wrap mb-3">
-                                    <span class="badge bg-secondary">React</span>
-                                    <span class="badge bg-secondary">Node.js</span>
-                                    <span class="badge bg-secondary">MongoDB</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
-                                </div>
-                            </div>
+                <div class="timeline">
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">2025 — Present</div>
+                            <div class="timeline-title">Informatics VPS Person In Charge</div>
+                            <div class="timeline-subtitle">Administrative Assistant</div>
+                            <p class="timeline-description">
+                                Responsible for managing and maintaining the Informatics department's VPS infrastructure, ensuring optimal performance and security.
+                                Collaborate with fellow students to deploy applications, monitor server health, and troubleshoot issues.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- project card 2 -->
-                    <div class="swiper-slide">
-                        <div class="card h-100">
-                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 2">
-                            <div class="card-body">
-                                <h5 class="card-title">Project Two</h5>
-                                <p class="card-text">bla bla bla
-                                </p>
-                                <div class="d-flex gap-2 flex-wrap mb-3">
-                                    <span class="badge bg-secondary">Vue</span>
-                                    <span class="badge bg-secondary">Firebase</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
-                                </div>
-                            </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">Mar 2025 — Jun 2025</div>
+                            <div class="timeline-title">Freelance Web Developer</div>
+                            <div class="timeline-subtitle">Freelance - Barru Regency, South Sulawesi</div>
+                            <p class="timeline-description">
+                                Worked with a project team to design and develop a concept website for Tellumpanua village, translating stakeholder
+                                requirements into a functional web presence. Contributed through both on-site collaboration and remote development.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- project card 3 -->
-                    <div class="swiper-slide">
-                        <div class="card h-100">
-                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 3">
-                            <div class="card-body">
-                                <h5 class="card-title">Project Three</h5>
-                                <p class="card-text">bla bla bla
-                                </p>
-                                <div class="d-flex gap-2 flex-wrap mb-3">
-                                    <span class="badge bg-secondary">Python</span>
-                                    <span class="badge bg-secondary">Django</span>
-                                    <span class="badge bg-secondary">PostgreSQL</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
-                                </div>
-                            </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">Mar 2025 — Jun 2025</div>
+                            <div class="timeline-title">Event Division</div>
+                            <div class="timeline-subtitle">DevForge 2025 - UC Makassar</div>
+                            <p class="timeline-description">
+                                Event coordination and planning from concept to execution, while overseeing on-site
+                                operations to ensure smooth participants experience.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- project card 4 -->
-                    <div class="swiper-slide">
-                        <div class="card h-100">
-                            <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 4">
-                            <div class="card-body">
-                                <h5 class="card-title">Project Four</h5>
-                                <p class="card-text">bla bla bla
-                                </p>
-                                <div class="d-flex gap-2 flex-wrap mb-3">
-                                    <span class="badge bg-secondary">Next.js</span>
-                                    <span class="badge bg-secondary">Tailwind</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-primary btn-sm">Live Demo</a>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm">GitHub</a>
-                                </div>
-                            </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">Feb 2024 — Jun 2024</div>
+                            <div class="timeline-title">Inventory & Liaison Officer</div>
+                            <div class="timeline-subtitle">DevForge 2024 - UC Makassar</div>
+                            <p class="timeline-description">
+                                Inventory transport & management. Also served as a liaison officer, facilitating
+                                communication and coordination between internal teams and participants.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- psst add more cards here -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">Dec 2023 — Feb 2024</div>
+                            <div class="timeline-title">Logistics & Transportation</div>
+                            <div class="timeline-subtitle">11th National Programming & Logic Competition - UC Makassar</div>
+                            <p class="timeline-description">
+                                Event coordination and planning from concept to execution, while overseeing on-site
+                                operations to ensure smooth participants experience.
+                            </p>
+                        </div>
+                    </div>
 
                 </div>
 
-                <!-- Navigation & Pagination -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- projects section -->
+<section id="projects" class="py-5">
+    <div class="container container-custom">
+        <h1>Projects</h1>
+        <p class="mb-4">Projects I'm involved with.</p>
+    </div>
+
+    <div class="swiper projects-section-swiper pt-3">
+        <div class="swiper-wrapper">
+
+            <!-- project card 1 -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://raw.githubusercontent.com/Oreo-1/Aru/refs/heads/main/assets/gh/projectaruimg.png" class="card-img-top" alt="Project 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Aru</h5>
+                        <p class="card-text">
+                            A dedicated Discord bot for my private server, one of the first projects that got me into coding.
+                            Featuring lots of if-statements and cringe jokes.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">JavaScript</span>
+                            <span class="badge bg-secondary">Node.js</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <!-- <a href="" class="btn btn-primary btn-sm">Learn More (soonTM)</a> -->
+                            <a href="https://git.aryo.fyi/Oreo-1/Aru" target="_blank" class="btn btn-outline-secondary btn-sm">View Repository</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="swiper-pagination mt-3"></div>
+            <!-- project card 2 -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://raw.githubusercontent.com/HainzelK/HantuProject/refs/heads/main/gh/Talle_logo.png" class="card-img-top" alt="Project 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Tallé</h5>
+                        <p class="card-text">
+                            A spell-casting augmented reality (AR) mobile game utilizing voice recognition, as a way
+                            to learn and preserve the Bugis-Lontara script.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">Unity</span>
+                            <span class="badge bg-secondary">AR Core</span>
+                            <span class="badge bg-secondary">Blender</span>
+                            <span class="badge badge-gold">Top 50 National (student category)</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="https://private-user-images.githubusercontent.com/121080759/598687134-dd2ceabe-72cd-4cad-a894-3422f0551304.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODIwNjY0NzQsIm5iZiI6MTc4MjA2NjE3NCwicGF0aCI6Ii8xMjEwODA3NTkvNTk4Njg3MTM0LWRkMmNlYWJlLTcyY2QtNGNhZC1hODk0LTM0MjJmMDU1MTMwNC5tcDQ_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDYyMVQxODIyNTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDg1OTVkZTRkMjJkODE1ZmU5YTVmZGM4YTVmYjg2ZWIyM2QyNmNjZmYzNzAxNmExMmFhOGYxYTJmNjAxZTA2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9dmlkZW8lMkZtcDQifQ.Sp1OcFq5aJs0w1tO-43c4iprVUNW76Ya3YWEf7oBrns" target="_blank" class="btn btn-primary btn-sm">
+                                📹 Watch Preview
+                            </a>
+                            <a href="https://github.com/HainzelK/HantuProject" target="_blank" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- project card 3 -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://raw.githubusercontent.com/Gibekkk/GarudaKotak/refs/heads/main/gh-asset/garuda_title.png" class="card-img-top" alt="Project 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Guardian Alam Raya: Utusan Dewata Abadi</h5>
+                        <p class="card-text">
+                            An action-adventure game made with Construct 2, utilizing Google's Teachable Machine to capture poses for in-game actions.
+                            Inspired by Indonesian mythology and folklore.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">Construct 2</span>
+                            <span class="badge bg-secondary">Google TM</span>
+                            <span class="badge bg-secondary">Computer Vision</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="https://garuda-kotak.vercel.app/" target="_blank" class="btn btn-primary btn-sm">▶︎ Play Now</a>
+                            <a href="https://github.com/Gibekkk/GarudaKotak" target="_blank" class="btn btn-outline-secondary btn-sm">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- project card 4 -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://raw.githubusercontent.com/Oreo-1/uc-kiosk/refs/heads/main/OrderHere-Frontend/assets/advs1.png" class="card-img-alternative-alternative" alt="Project 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Here</h5>
+                        <p class="card-text">
+                            A self-serving kiosk. Features include mood-based food recommendation,
+                            blockchain transaction auditing system, and admin panel for canteen staff to manage menu items.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">Laravel</span>
+                            <span class="badge bg-secondary">IoT</span>
+                            <span class="badge bg-secondary">Blockchain</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <!-- <a href="#" class="btn btn-primary btn-sm">Live Demo</a> -->
+                            <a href="https://github.com/Oreo-1/uc-kiosk" target="_blank" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- psst add more cards here -->
 
         </div>
-    </section>
+
+        <!-- Navigation & Pagination -->
+    </div>
+
+    <!-- <div class="swiper-pagination mt-3"></div> -->
+
+    </div>
+
+    <div class="swiper projects-section-swiper pt-3">
+        <div class="swiper-wrapper">
+
+            <!-- project card 1 (second row) -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 1">
+                    <div class="card-body">
+                        <h5 class="card-title">soon™</h5>
+                        <p class="card-text">
+                            upcoming platformer game project
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">godot?</span>
+                            <span class="badge bg-secondary">JavaScript?</span>
+                            <span class="badge bg-secondary"></span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="" class="btn btn-primary btn-sm">soon™</a>
+                            <a href="" target="_blank" class="btn btn-outline-secondary btn-sm">View Repository (soon™)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- project card 2 (second row) -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://raw.githubusercontent.com/Oreo-1/sapatellumpanua-web/refs/heads/main/github-raws/l-min.png" class="card-img-top" alt="Project 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Sapa Tellumpanua</h5>
+                        <p class="card-text">
+                            A concept website for Tellumpanua village;
+                            serves as a digital presence for the village, showcasing its culture, attractions, and community initiatives.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">Bootstrap</span>
+                            <span class="badge bg-secondary">A-Frame</span>
+                            <span class="badge bg-secondary">360° View</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="https://sapatellumpanua.web.app" class="btn btn-primary btn-sm">Live Demo</a>
+                            <a href="https://github.com/Oreo-1/sapatellumpanua-web" target="_blank" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- project card 3 (second row) -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://raw.githubusercontent.com/Oreo-1/Bebek-Kotak/refs/heads/main/assets/gh/gametitle.png" class="card-img-alternative" alt="Project 2">
+                    <div class="card-body">
+                        <h5 class="card-title">DuckType</h5>
+                        <p class="card-text">
+                            A simple typing game made with Construct 2 featuring hand made assets, local & online leaderboards, and a duck mascot.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">Construct 2</span>
+                            <span class="badge bg-secondary">Electron</span>
+                            <span class="badge badge-gold">🥇 1st Place IT Competition AMIKOM Surakarta 2025</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="https://oreo-1.github.io/Bebek-Kotak/" target="_blank" class="btn btn-primary btn-sm">▶︎ Play Now</a>
+                            <a href="https://github.com/Oreo-1/Bebek-Kotak" target="_blank" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- project card 4 (second row) -->
+            <div class="swiper-slide">
+                <div class="card h-100">
+                    <img src="https://raw.githubusercontent.com/Javinpro/ALP-Project-JAM-To-Do-List-/refs/heads/main/gh-assets/mockup-img.png" class="card-img-alternative" alt="Project 4">
+                    <div class="card-body">
+                        <h5 class="card-title">JAM</h5>
+                        <p class="card-text">
+                            A simple to-do list application made to streamline assignment process, tasks,
+                            and maximize productivity with various time management methods and progress tracker.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge bg-secondary">Flutter</span>
+                            <span class="badge bg-secondary">Django</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <!-- <a href="#" class="btn btn-primary btn-sm">Live Demo</a> -->
+                            <a href="https://github.com/Javinpro/ALP-Project-JAM-To-Do-List-" target="_blank" class="btn btn-outline-secondary btn-sm">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- psst add more cards here -->
+
+        </div>
+
+        <!-- Navigation & Pagination -->
+    </div>
+</section>
 
     <!-- contact me! -->
     <section class="py-5 my-5 kontek d-flex flex-column align-items-center justify-content-center text-center" id="contactme">
         <div class="container container-custom">
             <h1 class="display-3 fw-bold text-center">Let's work together</h1>
+            <h1 class="display-3 fw-bold text-center">Shoot me an email</h1>
+
             <p class="mb-5 text-center">
                 Have an idea or project in mind? Shoot me an email<br>
                 or contact me on twitter :D
@@ -487,17 +690,17 @@
 
                     <div class="col-lg-4 mb-4 mb-lg-0 text-center">
                         <h5 class="footer-title">
-                            Quick Links
+                            Other Links
                         </h5>
                         <ul class="footer-links list-unstyled">
                             <li>
-                                <a href="#skillset">Skills</a>
+                                <a href="https://git.aryo.fyi" target="_blank">git.aryo.fyi</a>
                             </li>
                             <li>
-                                <a href="#projects">Projects</a>
+                                <a href="#">my blog</a>
                             </li>
                             <li>
-                                <a href="#contactme">Contact</a>
+                                <a href="#">Contact</a>
                             </li>
                         </ul>
                     </div>

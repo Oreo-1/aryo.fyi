@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Test</title>
+    <link rel="icon" href="assets/favi.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/style1.css" />
+
+    <link href="assets/fonts/gfont_fira-sans.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0
+        }
+
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+        }
+
+        .vanta-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        /* ===== Tilt wrapper ===== */
+        .tilt-wrapper {
+            perspective: 1000px;
+        }
+
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--glass-radius);
+            box-shadow: var(--glass-shadow);
+
+            padding: 2.5rem;
+        }
+
+        .tilt-card.is-hovering {
+            transition: transform 0.05s linear, box-shadow 0.3s ease;
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--glass-shadow-hover);
+        }
+
+        /* optional: gives inner content a slight pop-out feel.
+       remove translateZ if you don't want layered depth. */
+        .tilt-card>* {
+            transform: translateZ(20px);
+        }
+
+        /* just for the demo content inside */
+        .demo-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-content p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vanta-bg"></div>
+    <div class="vanta-overlay"></div>
+
+    <section class="py-5 d-flex align-items-center" style="min-height: 100vh;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+
+                    <!-- COPY THIS -->
+                    <div class="tilt-wrapper">
+                        <div class="tilt-card" data-tilt>
+
+                            <div class="demo-content">
+                                <h3>Reusable Tilt Card</h3>
+                                <p>
+                                    Move your mouse over this block — it tilts toward the cursor.
+                                    Swap this content for anything: the timeline, a project card,
+                                    a profile photo, whatever.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- COPY THIS -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- scripts from your project -->
+
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/threejs/threejs.js"></script>
+    <script src="assets/threejs/vanta_waves.js"></script>
+    <script>
+        // Initialize the Vanta effect (customize options as needed)
+        VANTA.WAVES({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x121212,
+            shininess: 70,
+            waveSpeed: 0.5,
+            zoom: 1.1
+        });
+
+        // Generic tilt effect — works on any element with [data-tilt]
+        document.querySelectorAll('[data-tilt]').forEach((card) => {
+            const maxTilt = 8;       // degrees, don't forget to keep this subtle :v
+            const scaleOnHover = 1.02;
+
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -maxTilt;
+                const rotateY = ((x - centerX) / centerX) * maxTilt;
+
+                card.style.transform =
+                    `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scaleOnHover})`;
+            });
+
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('is-hovering');
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('is-hovering');
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+    </script>
+</body>
+
+</html>

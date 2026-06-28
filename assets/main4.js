@@ -39,75 +39,75 @@ document.getElementById("navContact").addEventListener("click", () => {
 //   \___\___/\___/_| |___/\__, | /_/ \_\_||_|_|_|_|_\__,_|\__|_\___/_||_/__/ (_)___/
 //                         |___/                                                     
 
-// let isDarkMode = true;
+let isDarkMode = true;
 
-// const DARK_MODE = 0x121212;
-// const LIGHT_MODE = 0x989898;
+const DARK_MODE = 0x121212;
+const LIGHT_MODE = 0x989898;
 
-// const button = document.getElementById("toggle-darkmode-lightmode");
+const button = document.getElementById("toggle-darkmode-lightmode");
 
-// const effect = VANTA.WAVES({
-//   el: "#vanta-bg",
-//   mouseControls: true,
-//   touchControls: true,
-//   gyroControls: true,
-//   minHeight: 200.00,
-//   minWidth: 200.00,
-//   scale: 1.00,
-//   scaleMobile: 1.00,
-//   color: 0x121212,
-//   shininess: 70,
-//   waveSpeed: 0.5,
-//   zoom: 1.1
-// });
+const effect = VANTA.WAVES({
+  el: "#vanta-bg",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: true,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  color: 0x121212,
+  shininess: 70,
+  waveSpeed: 0.5,
+  zoom: 1.1
+});
 
-// function smoothSwitch(from, to, duration = 225) {
-//   const start = performance.now();
+function smoothSwitch(from, to, duration = 225) {
+  const start = performance.now();
 
-//   function animate(now) {
-//     const t = Math.min((now - start) / duration, 1);
+  function animate(now) {
+    const t = Math.min((now - start) / duration, 1);
 
-//     const r =
-//       ((from >> 16) & 255) +
-//       ((((to >> 16) & 255) - ((from >> 16) & 255)) * t);
+    const r =
+      ((from >> 16) & 255) +
+      ((((to >> 16) & 255) - ((from >> 16) & 255)) * t);
 
-//     const g =
-//       ((from >> 8) & 255) +
-//       ((((to >> 8) & 255) - ((from >> 8) & 255)) * t);
+    const g =
+      ((from >> 8) & 255) +
+      ((((to >> 8) & 255) - ((from >> 8) & 255)) * t);
 
-//     const b =
-//       (from & 255) +
-//       (((to & 255) - (from & 255)) * t);
+    const b =
+      (from & 255) +
+      (((to & 255) - (from & 255)) * t);
 
-//     const color =
-//       (Math.round(r) << 16) |
-//       (Math.round(g) << 8) |
-//       Math.round(b);
+    const color =
+      (Math.round(r) << 16) |
+      (Math.round(g) << 8) |
+      Math.round(b);
 
-//     effect.setOptions({ color });
+    effect.setOptions({ color });
 
-//     if (t < 1) {
-//       requestAnimationFrame(animate);
-//     }
-//   }
+    if (t < 1) {
+      requestAnimationFrame(animate);
+    }
+  }
 
-//   requestAnimationFrame(animate);
-// }
+  requestAnimationFrame(animate);
+}
         // NOTE: when fixing light/dark mode, remove this code and uncomment code above and below
-        VANTA.WAVES({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: true,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x121212,
-            shininess: 70,
-            waveSpeed: 0.5,
-            zoom: 1.1
-        });
+        // VANTA.WAVES({
+        //     el: "#vanta-bg",
+        //     mouseControls: true,
+        //     touchControls: true,
+        //     gyroControls: true,
+        //     minHeight: 200.00,
+        //     minWidth: 200.00,
+        //     scale: 1.00,
+        //     scaleMobile: 1.00,
+        //     color: 0x121212,
+        //     shininess: 70,
+        //     waveSpeed: 0.5,
+        //     zoom: 1.1
+        // });
 
 //    __                     _ _      _   _        _          _     _         _   _            
 //   / _|__ _ _ _  __ _  _  | (_)__ _| |_| |_   __| |__ _ _ _| |__ | |__ _  _| |_| |_ ___ _ _  
@@ -116,42 +116,42 @@ document.getElementById("navContact").addEventListener("click", () => {
 //                    |__/      |___/                                                          
 
 // sun/moon SVG icon refs, expects these elements inside the button
-// const iconCore = document.getElementById("core");
-// const iconRays = document.getElementById("rays");
-// const iconCrater = document.getElementById("crater");
+const iconCore = document.getElementById("core");
+const iconRays = document.getElementById("rays");
+const iconCrater = document.getElementById("crater");
 
-// function setIconSun() {
-//   iconCore.style.r = "5";
-//   iconRays.style.opacity = "1";
-//   iconRays.style.transform = "rotate(0deg) scale(1)";
-//   iconCrater.style.opacity = "0";
-//   iconCrater.setAttribute("cx", "16");
-//   iconCrater.setAttribute("cy", "9");
-//   iconCrater.setAttribute("r", "3.5");
-//   button.setAttribute("aria-label", "Switch to dark mode");
-// }
+function setIconSun() {
+  iconCore.style.r = "5";
+  iconRays.style.opacity = "1";
+  iconRays.style.transform = "rotate(0deg) scale(1)";
+  iconCrater.style.opacity = "0";
+  iconCrater.setAttribute("cx", "16");
+  iconCrater.setAttribute("cy", "9");
+  iconCrater.setAttribute("r", "3.5");
+  button.setAttribute("aria-label", "Switch to dark mode");
+}
 
-// function setIconMoon() {
-//   iconCore.style.r = "7";
-//   iconRays.style.opacity = "0";
-//   iconRays.style.transform = "rotate(90deg) scale(0.6)";
-//   iconCrater.style.opacity = "1";
-//   iconCrater.setAttribute("cx", "15");
-//   iconCrater.setAttribute("cy", "8");
-//   iconCrater.setAttribute("r", "4");
-//   button.setAttribute("aria-label", "Switch to light mode");
-// }
+function setIconMoon() {
+  iconCore.style.r = "7";
+  iconRays.style.opacity = "0";
+  iconRays.style.transform = "rotate(90deg) scale(0.6)";
+  iconCrater.style.opacity = "1";
+  iconCrater.setAttribute("cx", "15");
+  iconCrater.setAttribute("cy", "8");
+  iconCrater.setAttribute("r", "4");
+  button.setAttribute("aria-label", "Switch to light mode");
+}
 
-// button.addEventListener("click", () => {
-//   const from = isDarkMode ? DARK_MODE : LIGHT_MODE;
-//   const to = isDarkMode ? LIGHT_MODE : DARK_MODE;
+button.addEventListener("click", () => {
+  const from = isDarkMode ? DARK_MODE : LIGHT_MODE;
+  const to = isDarkMode ? LIGHT_MODE : DARK_MODE;
 
-//   smoothSwitch(from, to);
+  smoothSwitch(from, to);
 
-//   isDarkMode = !isDarkMode;
+  isDarkMode = !isDarkMode;
 
-//   isDarkMode ? setIconMoon() : setIconSun();
-// });
+  isDarkMode ? setIconMoon() : setIconSun();
+});
 
 setInterval(cycleText, 3200);
 

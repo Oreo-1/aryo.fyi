@@ -79,6 +79,10 @@ a {
            |___/|___/               |___/                                   
 */
 
+.FIX-SOON {
+    visibility: hidden;
+}
+
 .tdmlm-btn{
     margin-top: 1.64rem;
     margin-right: 1.64rem;

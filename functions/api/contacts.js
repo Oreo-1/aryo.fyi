@@ -7,8 +7,8 @@
 // Cloudflare dashboard > Workers & Pages > your Pages project >
 // Settings > Variables and Secrets > Add (type: Secret)
 
-const TO_EMAIL = 'send-mail@aryo.fyi';        // where you want messages delivered
-const FROM_EMAIL = 'contact@yourdomain.com';  // must be on a domain verified in Resend
+const TO_EMAIL = 'aryo-km@proton.me';             // where you want messages delivered
+const FROM_EMAIL = 'contact@mail.alim.dpdns.org'; // on your verified Resend domain
 
 export async function onRequestPost(context) {
   const { request, env } = context;

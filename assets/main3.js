@@ -274,6 +274,55 @@ document.querySelectorAll('[data-tilt]').forEach((card) => {
   });
 });
 
+// send email functionality
+const form = document.getElementById('contact-form');
+const status = document.getElementById('contact-form-status');
+const submitBtn = document.getElementById('contact-submit-btn');
+
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  if (!form.checkValidity()) {
+    form.classList.add('was-validated');
+    status.textContent = 'Check the fields above — something is missing or not quite right.';
+    status.classList.remove('is-success');
+    status.classList.add('is-error');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  status.textContent = 'Sending…';
+  status.classList.remove('is-success', 'is-error');
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById('contact-name').value,
+        email: document.getElementById('contact-email').value,
+        message: document.getElementById('contact-body').value,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Something went wrong.');
+    }
+
+    status.textContent = 'Message sent — thanks for reaching out!';
+    status.classList.add('is-success');
+    form.reset();
+    form.classList.remove('was-validated');
+  } catch (err) {
+    status.textContent = err.message;
+    status.classList.add('is-error');
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
 // vanta.js graveyard
 
 // VANTA.NET({

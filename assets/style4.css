@@ -360,13 +360,33 @@ section {
     z-index: 2;
 }
 
+.profile-img-wrapper {
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 20px
+}
+
 .rounded-profile-img {
     border-radius: 50%;
     object-fit: cover;
     display: block;
+    height: 100%;
+    width: 100%;
+}
 
-    height: 400px;
-    width: auto
+@media (max-width: 576px) {
+    .rounded-profile-img{
+        height: auto;
+        width: 100%;
+    };
 }
 
 /*       
@@ -995,18 +1015,20 @@ section {
 }
 
 /* miscellaneous-ish */
-.tilt-card.is-hovering {
-    transition: transform 0.05s linear, box-shadow 0.3s ease;
-    border-color: var(--glass-border-hover);
-    box-shadow: var(--glass-shadow-hover);
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: box-shadow 180ms ease, transform 200ms cubic-bezier(.2,.9,.2,1);
+  /* optional: pop shadow when hovering */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
-
-    /* optional: gives inner content a slight pop-out feel.
-       remove translateZ if you don't want layered depth. */
+.profile-img-wrapper { /* if you want shadows to overflow */
+  overflow: visible; /* remove if you need perfect circular clipping */
+}
 .tilt-card > * {
-    transform: translateZ(20px);
+  transform: translateZ(16px);
+  backface-visibility: hidden;
 }
-
 /* grid background test */
 /* .grid-background-1 {
     background-image: url(/assets/grid1.png);

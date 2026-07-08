@@ -245,81 +245,83 @@ const projectsSwiper = new Swiper('.projects-section-swiper', {
 //  |__ /   \  | _ \__ _ _ _ __ _| | |__ ___ __
 //   |_ \ |) | |  _/ _` | '_/ _` | | / _` \ \ /
 //  |___/___/  |_| \__,_|_| \__,_|_|_\__,_/_\_\
+// improved tilt handler
 document.querySelectorAll('[data-tilt]').forEach((card) => {
-  const maxTilt = 12;       // degrees, don't forget to keep this subtle :v
-  const scaleOnHover = 1.02;
+  const maxTilt = Number(card.dataset.tiltMax) || 12;
+  const scaleOnHover = Number(card.dataset.tiltScale) || 1.02;
+  const smooth = Number(card.dataset.tiltSmooth) || 0.12; // lerp factor
+  let width = 0, height = 0;
+  let cx = 0, cy = 0;
+  let targetX = 0, targetY = 0;
+  let rafId = null;
 
-  card.addEventListener('mousemove', (e) => {
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function onMove(e) {
     const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -maxTilt;
-    const rotateY = ((x - centerX) / centerX) * maxTilt;
-
-    card.style.transform =
-      `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scaleOnHover})`;
-  });
-
-  card.addEventListener('mouseenter', () => {
-    card.classList.add('is-hovering');
-  });
-
-  card.addEventListener('mouseleave', () => {
-    card.classList.remove('is-hovering');
-    card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-  });
-});
-
-// send email functionality
-const form = document.getElementById('contact-form');
-const status = document.getElementById('contact-form-status');
-const submitBtn = document.getElementById('contact-submit-btn');
-
-form.addEventListener('submit', async function (e) {
-  e.preventDefault();
-
-  if (!form.checkValidity()) {
-    form.classList.add('was-validated');
-    status.textContent = 'Check the fields above — something is missing or not quite right.';
-    status.classList.remove('is-success');
-    status.classList.add('is-error');
-    return;
+    width = rect.width; height = rect.height;
+    cx = rect.left + width / 2;
+    cy = rect.top + height / 2;
+    const x = (e.clientX - cx) / (width / 2); // -1 .. 1
+    const y = (e.clientY - cy) / (height / 2); // -1 .. 1
+    targetX = clamp(y * -maxTilt, -maxTilt, maxTilt);
+    targetY = clamp(x * maxTilt, -maxTilt, maxTilt);
+    if (!rafId) tick();
   }
 
-  submitBtn.disabled = true;
-  status.textContent = 'Sending…';
-  status.classList.remove('is-success', 'is-error');
+  function tick() {
+    rafId = requestAnimationFrame(() => {
+      const cur = card._tiltState || { x: 0, y: 0, s: 1 };
+      cur.x = lerp(cur.x, targetX, smooth);
+      cur.y = lerp(cur.y, targetY, smooth);
+      cur.s = lerp(cur.s, scaleOnHover, smooth);
+      card.style.transform = `perspective(900px) rotateX(${cur.x}deg) rotateY(${cur.y}deg) scale(${cur.s})`;
+      card._tiltState = cur;
 
-  try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: document.getElementById('contact-name').value,
-        email: document.getElementById('contact-email').value,
-        message: document.getElementById('contact-body').value,
-      }),
+      // stop RAF when near target to save work
+      if (Math.abs(cur.x - targetX) < 0.01 && Math.abs(cur.y - targetY) < 0.01) {
+        rafId = null;
+      } else {
+        tick();
+      }
     });
+  }
 
-    const data = await res.json();
+  function onEnter() {
+    card.classList.add('is-hovering');
+    // kickstart smoothing
+    if (!rafId) tick();
+  }
 
-    if (!res.ok) {
-      throw new Error(data.error || 'Something went wrong.');
+  function onLeave() {
+    // animate back to neutral smoothly
+    targetX = 0; targetY = 0;
+    // scale back to 1
+    card.dataset.tiltScale = 1;
+    if (!rafId) tick();
+    card.classList.remove('is-hovering');
+  }
+
+  card.addEventListener('mousemove', onMove, { passive: true });
+  card.addEventListener('mouseenter', onEnter);
+  card.addEventListener('mouseleave', onLeave);
+
+  // optional: mobile tilt support (device orientation)
+  if (window.DeviceOrientationEvent) {
+    let enabled = false;
+    function handleOrientation(ev) {
+      if (!enabled) return;
+      const gamma = ev.gamma || 0; // left-to-right tilt [-90,90]
+      const beta = ev.beta || 0; // front-to-back tilt [-180,180]
+      // normalize and map to small tilt values
+      targetY = clamp((gamma / 45) * maxTilt, -maxTilt, maxTilt);
+      targetX = clamp((beta / 45) * -maxTilt, -maxTilt, maxTilt);
+      if (!rafId) tick();
     }
-
-    status.textContent = 'Message sent — thanks for reaching out!';
-    status.classList.add('is-success');
-    form.reset();
-    form.classList.remove('was-validated');
-  } catch (err) {
-    status.textContent = err.message;
-    status.classList.add('is-error');
-  } finally {
-    submitBtn.disabled = false;
+    // enable on first touch to avoid permission issues
+    card.addEventListener('touchstart', () => { enabled = true; }, { once: true });
+    window.addEventListener('deviceorientation', handleOrientation);
   }
 });
 

@@ -14,6 +14,7 @@ made with:
 - [ ] en -> id translation button
 - [ ] skill card needs revision probably. i think there's a better way to do it
 <br>
+
 - [ ] or yk what, custom api for like pictures and stuffs
 - [ ] ooh how about left sidebar?
 

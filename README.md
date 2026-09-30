@@ -2,24 +2,19 @@
 root domain content
 
 ## web portfolio
-personal web portfolio
+personal web portfolio, now built with svelte.
 
 made with:
+- svelte 5 / vite
 - bootstrap
 - vantajs (threejs)
 - swiperjs
 
-TODO:<br>
-en -> id translation button<br>
-skill card needs revision probably. i think there's a better way to do it<br>
-change style.css/main.js every update<br>
-or yk what, custom api
-<br><br>
-ooh how about left sidebar?
+## TODO:
+- [ ] en -> id translation button
+- [ ] skill card needs revision probably. i think there's a better way to do it
+<br>
+- [ ] or yk what, custom api for like pictures and stuffs
+- [ ] ooh how about left sidebar?
 
 absolutely zero regard of mobile lighthouse performance (i'm sorry)
-
-restructure imminent!!! (i hope) it's getting hard to navigate!
-
-## fijecraft
-https://aryo.fyi/fijecraft

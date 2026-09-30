@@ -26,9 +26,7 @@ export const projectRows = [
       description: "A spell-casting augmented reality (AR) mobile game utilizing voice recognition, as a way to learn and preserve the Bugis-Lontara script.",
       tags: [{ label: "Unity" }, { label: "AR Core" }, { label: "Blender" }, { label: "Top 50 National (student category)", gold: true }],
       links: [
-        // FIXME: signed, short-lived github attachment URL (jwt expired 2026-06-21), so this link is dead.
-        // Re-host the preview somewhere permanent (release asset, youtube, your own server).
-        { label: "📹 Watch Preview", href: "https://private-user-images.githubusercontent.com/121080759/598687134-dd2ceabe-72cd-4cad-a894-3422f0551304.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODIwNjY0NzQsIm5iZiI6MTc4MjA2NjE3NCwicGF0aCI6Ii8xMjEwODA3NTkvNTk4Njg3MTM0LWRkMmNlYWJlLTcyY2QtNGNhZC1hODk0LTM0MjJmMDU1MTMwNC5tcDQ_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDYyMVQxODIyNTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDg1OTVkZTRkMjJkODE1ZmU5YTVmZGM4YTVmYjg2ZWIyM2QyNmNjZmYzNzAxNmExMmFhOGYxYTJmNjAxZTA2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9dmlkZW8lMkZtcDQifQ.Sp1OcFq5aJs0w1tO-43c4iprVUNW76Ya3YWEf7oBrns", primary: true },
+        { label: "📹 Watch Preview", href: "https://github.com/user-attachments/assets/dd2ceabe-72cd-4cad-a894-3422f0551304", primary: true },
         { label: "GitHub", href: "https://github.com/HainzelK/HantuProject" },
       ],
     },

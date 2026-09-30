@@ -1,5 +1,5 @@
 # aryo.fyi
-root domain content
+root domain content. [https://git.aryo.fyi/Oreo-1/aryo.fyi]
 
 ## web portfolio
 personal web portfolio, now built with svelte.

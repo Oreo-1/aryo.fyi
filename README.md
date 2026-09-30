@@ -14,6 +14,8 @@ en -> id translation button<br>
 skill card needs revision probably. i think there's a better way to do it<br>
 change style.css/main.js every update<br>
 or yk what, custom api
+<br><br>
+ooh how about left sidebar?
 
 absolutely zero regard of mobile lighthouse performance (i'm sorry)
 

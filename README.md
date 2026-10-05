@@ -13,9 +13,11 @@ made with:
 ## TODO:
 - [ ] en -> id translation button
 - [ ] skill card needs revision probably. i think there's a better way to do it
+- [ ] short desc just below hero
 <br>
 
 - [ ] or yk what, custom api for like pictures and stuffs
 - [ ] ooh how about left sidebar?
 
+<br>
 absolutely zero regard of mobile lighthouse performance (i'm sorry)

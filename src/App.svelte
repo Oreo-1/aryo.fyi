@@ -1,26 +1,27 @@
 <script>
-  import Navbar from './lib/components/Navbar.svelte';
-  import VantaBackground from './lib/components/VantaBackground.svelte';
-  import ThemeToggle from './lib/components/ThemeToggle.svelte';
-  import Hero from './lib/components/Hero.svelte';
-  import Skills from './lib/components/Skills.svelte';
-  import TechStack from './lib/components/TechStack.svelte';
-  import Experience from './lib/components/Experience.svelte';
-  import Projects from './lib/components/Projects.svelte';
-  import Contact from './lib/components/Contact.svelte';
-  import Footer from './lib/components/Footer.svelte';
+  // the page, top to bottom. one file per <section> in src/sections.
+  // reorder / remove / add lines to change the page.
+  import Navbar from './sections/Navbar.svelte';
+  import Background from './sections/Background.svelte';
 
-  let background;
+  import Hero from './sections/Hero.svelte';
+  import Skills from './sections/Skills.svelte';
+  import TechStack from './sections/TechStack.svelte';
+  import Experience from './sections/Experience.svelte';
+  import Projects from './sections/Projects.svelte';
+  import ContactHeader from './sections/ContactHeader.svelte';
+  import ContactForm from './sections/ContactForm.svelte';
+  import Footer from './sections/Footer.svelte';
 </script>
 
 <Navbar />
-<VantaBackground bind:this={background} />
-<ThemeToggle onswitch={(from, to) => background?.transitionColor(from, to)} />
+<Background />
 
 <Hero />
 <Skills />
 <TechStack />
 <Experience />
 <Projects />
-<Contact />
+<ContactHeader />
+<ContactForm />
 <Footer />

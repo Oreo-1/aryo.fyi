@@ -4,7 +4,7 @@
   "description": "content for root domain",
   "private": true,
   "type": "module",
-  "author": "Aryo",
+  "author": "Aryo Karel Merentek",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

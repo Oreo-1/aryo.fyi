@@ -97,7 +97,7 @@ a {
     .tdmlm-btn{
         margin-top: 10vh;
         margin-right: 1.1rem;
-    };
+    }
 }
 
 #toggle-darkmode-lightmode {
@@ -386,7 +386,7 @@ section {
     .rounded-profile-img{
         height: auto;
         width: 100%;
-    };
+    }
 }
 
 /*       
@@ -836,7 +836,7 @@ section {
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 
     font-size: 1.5rem;
-    font-weight: medium;
+    /* font-weight: medium; */
 }
 
 .contactme-btn:hover {

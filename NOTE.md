@@ -68,6 +68,14 @@ Everything is plain html, so just edit the text in the section file:
 
 html and js inside are normal: `document.getElementById(...)`, `addEventListener(...)`, etc.
 
+NOTE (mica / glass blur):
+always write `-webkit-backdrop-filter` BEFORE `backdrop-filter`, like:
+``` css
+-webkit-backdrop-filter: var(--glass-blur);
+backdrop-filter: var(--glass-blur);
+```
+the other way around works in `pnpm dev` but the production minifier (lightningcss) drops the unprefixed line, and then chrome/firefox show no blur after `pnpm build`.
+
 ## notes
 - asset paths start with `/` (`/assets/...`, `/files/...`) because the files live in `public/`.
 - the mobile menu is bootstrap's collapse module (imported in `Navbar.svelte`), driven by the same `data-bs-*` attributes as before.

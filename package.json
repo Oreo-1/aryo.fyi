@@ -9,9 +9,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+
+    "wrangler": "vite build && wrangler pages deploy dist --project-name aryofyi",
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
-    "docker:build": "docker build -t aryo-fyi ."
+    "docker:build": "docker build -t aryo-fyi .",
+
+    "clean": "rm -rf dist"
   },
   "packageManager": "pnpm@10.33.0",
   "dependencies": {

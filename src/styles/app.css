@@ -97,7 +97,7 @@ a {
     .tdmlm-btn{
         margin-top: 10vh;
         margin-right: 1.1rem;
-    }
+    };
 }
 
 #toggle-darkmode-lightmode {
@@ -115,8 +115,8 @@ a {
     justify-content: center;
 
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
     border: 1px solid var(--glass-border);
 
     box-shadow: var(--glass-shadow);
@@ -176,8 +176,8 @@ a {
     transform: translateX(-50%);
 
     background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
 
     border: 1px solid var(--glass-border);
 
@@ -229,8 +229,8 @@ a {
 
     background: rgba(255, 255, 255, 0.15);
 
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
 
     border: 1px solid var(--btn-border);
     color: white;
@@ -386,7 +386,7 @@ section {
     .rounded-profile-img{
         height: auto;
         width: 100%;
-    }
+    };
 }
 
 /*       
@@ -473,8 +473,8 @@ section {
 
 .mica-card {
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
 
     border: 1px solid var(--glass-border);
     border-radius: var(--glass-radius);
@@ -527,8 +527,8 @@ section {
 .tech-card {
     background: var(--glass-bg);
 
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
 
     border: 1px solid var(--glass-border);
     border-radius: 24px;
@@ -591,8 +591,8 @@ section {
     min-height: 500px;
 
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
     border: 1px solid var(--glass-border);
     border-radius: var(--glass-radius);
     overflow: hidden;
@@ -751,8 +751,8 @@ section {
 
 .timeline-card {
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
 
     border: 1px solid var(--glass-border);
     border-radius: var(--glass-radius);
@@ -825,8 +825,8 @@ section {
 } */
 
 .contactme-btn {
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
     padding: 13px 37px;
     border-width: 2px;
     max-width: 200px;
@@ -836,7 +836,7 @@ section {
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 
     font-size: 1.5rem;
-    /* font-weight: medium; */
+    font-weight: medium;
 }
 
 .contactme-btn:hover {
@@ -849,8 +849,8 @@ section {
 /* send email */
   .message-panel {
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
     border: 1px solid var(--glass-border);
     border-radius: var(--glass-radius);
     box-shadow: var(--glass-shadow);
@@ -1003,8 +1003,8 @@ section {
 
     background: var(--glass-bg);
 
-    backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
 
     border-top: 1px solid var(--glass-border);
     border-radius: 25px 25px 0 0;

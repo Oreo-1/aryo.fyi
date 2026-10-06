@@ -16,7 +16,8 @@ made with:
 - [ ] short desc just below hero
 <br>
 
-- [ ] or yk what, custom api for like pictures and stuffs
+- [x] or yk what, custom api for like pictures and stuffs
+    - [ ] NEXT: short fade when image loaded
 - [ ] ooh how about left sidebar?
 
 <br>

@@ -14,9 +14,11 @@
   import Footer from './sections/Footer.svelte';
 </script>
 
+<!-- fixed components -->
 <Navbar />
 <Background />
 
+<!-- page components -->
 <Hero />
 <Skills />
 <TechStack />

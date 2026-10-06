@@ -14,12 +14,13 @@
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
     "docker:build": "docker build -t aryo-fyi .",
-
+    
     "clean": "rm -rf dist"
   },
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "bootstrap": "5.3.8",
+    "pocketbase": "^0.28.1",
     "swiper": "^12.2.0",
     "three": "0.134.0",
     "vanta": "0.5.24"

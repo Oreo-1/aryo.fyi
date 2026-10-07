@@ -3,19 +3,36 @@
   import { pb } from '../pocketbase.js';
  
   onMount(() => {
-  (async () => {
-    try {
-      // 1. 'aryofyi' collection
-      const { items } = await pb.collection('aryofyi').getList(1, 1);
-      if (!items.length) return;
-      
-      // 2. items[0].hero_image
-      const url = pb.files.getURL(items[0], items[0].hero_image, { thumb: '800x800' });
-      document.getElementById('profile-photo').src = url;
-    } catch (err) {
-      console.warn('pocketbase unavailable, keeping the local photo', err);
-    }
-  })();
+    (async () => {
+      try { // 'aryofyi' collection, items[0].hero_image
+        const { items } = await pb.collection('aryofyi').getList(1, 1);
+        const photo = document.getElementById('profile-photo');
+        if (!items.length || !photo) return;
+
+        const url = pb.files.getURL(items[0], items[0].hero_image, { thumb: '800x800' });
+
+        // 1. download + decode the new image in the background (nothing visible changes yet)
+        const next = new Image();
+        next.src = url;
+        await next.decode();
+        
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // 2. fade the current photo out
+        photo.style.opacity = '0';
+
+        // 3. when the fade-out is done (0.5s, same as the css), swap and fade back in
+        setTimeout(() => {
+          photo.onload = () => {
+            photo.style.opacity = '1';
+            photo.onload = null;
+          };
+          photo.src = url;
+        }, 500);
+      } catch (err) {
+        console.warn('pocketbase unavailable, keeping the local photo', err);
+      }
+    })();
  
     // ah yes, the cycling text
     const ctext = document.querySelectorAll("#initial-pt .cycling-text");
@@ -181,7 +198,7 @@
                 data-tilt-max="14"
                 data-tilt-scale="1.04"
                 data-tilt-smooth="0.12">
-                <img id="profile-photo" src="/assets/anak_alim.png" class="rounded-profile-img mx-auto d-block" alt="me">
+                <img id="profile-photo" src="/assets/cat-loading-hgb.gif" class="rounded-profile-img mx-auto d-block" alt="me">
             </div>
         </div>
     </div>

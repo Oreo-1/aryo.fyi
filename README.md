@@ -17,7 +17,6 @@ made with:
 <br>
 
 - [x] or yk what, custom api for like pictures and stuffs
-    - [ ] NEXT: short fade when image loaded
 - [ ] ooh how about left sidebar?
 
 <br>

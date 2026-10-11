@@ -26,4 +26,6 @@
 <Projects />
 <ContactHeader />
 <ContactForm />
+
+<!-- footer -->
 <Footer />

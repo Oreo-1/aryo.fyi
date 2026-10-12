@@ -5,8 +5,6 @@
 
 </div>
 
----
-
 root domain content. [https://git.aryo.fyi/Oreo-1/aryo.fyi]
 
 ## web portfolio

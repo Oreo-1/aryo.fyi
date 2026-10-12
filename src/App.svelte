@@ -1,9 +1,13 @@
 <script>
   // the page, top to bottom. one file per <section> in src/sections.
   // reorder / remove / add lines to change the page.
+  
+  // import fixed components
   import Navbar from './sections/Navbar.svelte';
+  import Leftpane from './sections/Leftpane.svelte';
   import Background from './sections/Background.svelte';
 
+  // import page components
   import Hero from './sections/Hero.svelte';
   import Skills from './sections/Skills.svelte';
   import TechStack from './sections/TechStack.svelte';
@@ -16,6 +20,7 @@
 
 <!-- fixed components -->
 <Navbar />
+<Leftpane />
 <Background />
 
 <!-- page components -->

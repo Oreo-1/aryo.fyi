@@ -2,7 +2,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'swiper/css';
 // import './styles/fira-sans.css';
+
 import './styles/app.css';
+import './styles/leftbar.css'
 
 import { mount } from 'svelte';
 import App from './App.svelte';

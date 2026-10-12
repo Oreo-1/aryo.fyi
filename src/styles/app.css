@@ -386,6 +386,7 @@ section {
     .rounded-profile-img{
         height: auto;
         width: 100%;
+        aspect-ratio: 1 / 1;
     };
 }
 
@@ -1034,15 +1035,4 @@ section {
   transform: translateZ(16px);
   backface-visibility: hidden;
 }
-/* grid background test */
-/* .grid-background-1 {
-    background-image: url(/assets/grid1.png);
-}
 
-.grid-background-2 {
-    background-image: url(/assets/grid2.png);
-}
-
-.grid-background-3 {
-    background-image: url(/assets/grid3.png);
-} */

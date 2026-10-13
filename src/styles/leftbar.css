@@ -4,9 +4,9 @@
     --leftbar-ease: cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Animation Timings */
-    --leftbar-t-move: 0.23s;
-    --leftbar-t-fade: 0.35s;
-    --leftbar-t-hover: 0.25s;
+    --leftbar-t-move: 0.2s;
+    --leftbar-t-fade: 0.3s;
+    --leftbar-t-hover: 0.2s;
     
     /* darkness */
     --leftbar-darkness: rgba(0, 0, 0, 0.55);
@@ -133,7 +133,7 @@
     z-index: calc(var(--leftbar-z) + 20);
 
     width: 44px;
-    height: 88px;
+    height: 188px;
     color: #fff;
 
     border-left: none;

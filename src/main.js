@@ -1,7 +1,7 @@
-// css order: bootstrap -> swiper -> font -> app.css
+// css order: bootstrap -> swiper -> fonts -> app.css
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'swiper/css';
-// import './styles/fira-sans.css';
+// import './styles/fonts.css';
 
 import './styles/app.css';
 import './styles/leftbar.css'

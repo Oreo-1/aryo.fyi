@@ -14,7 +14,7 @@ made with:
 - svelte 5 / vite
 - bootstrap
 - vantajs (threejs)
-- swiperjs
+- ~~swiperjs~~ _*switched to plain js_
 
 ## TODO:
 - [ ] en -> id translation button
@@ -28,3 +28,5 @@ made with:
 
 <br>
 absolutely zero regard for mobile lighthouse performance (i'm sorry)
+
+<!-- some regard for mobile lighthouse -->

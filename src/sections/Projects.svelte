@@ -1,70 +1,170 @@
 <script>
-  import { onMount } from 'svelte';
-  import Swiper from 'swiper';
-  import { Autoplay, FreeMode } from 'swiper/modules';
+  // Infinite, draggable marquee. Replaces Swiper (Autoplay + FreeMode + loop).
+  //
+  // The auto-scroll is a single Web Animations API `translateX` animation, so it runs on the
+  // compositor thread and costs no JavaScript per frame. JS only runs on input (drag / hover /
+  // focus) and to pause the animation when it isn't needed.
+  //
+  // Expected markup:
+  //   <div use:marquee>
+  //     <div class="marquee-track">
+  //       <div class="marquee-group"> ...slides... </div>
+  //       <div class="marquee-group"> ...same slides again (loop copy)... </div>
+  //     </div>
+  //   </div>
+  function marquee(node, { secondsPerSlide = 15, resumeDelay = 2000 } = {}) {
+    const track = node.firstElementChild;
+    const [group, copy] = track.children;
+    const duration = group.childElementCount * secondsPerSlide * 1000; // ms per full loop
 
-  onMount(() => {
-    let resumeTimer;
-    const swipers = [];
+    // the copy only exists to make the loop seamless: keep it out of the tab order
+    copy.querySelectorAll('a, button').forEach((el) => (el.tabIndex = -1));
 
-    // one swiper per .projects-section-swiper row
-    document.querySelectorAll('.projects-section-swiper').forEach((row) => {
-      swipers.push(
-        new Swiper(row, {
-          modules: [Autoplay, FreeMode],
-          slidesPerView: 1,
-          spaceBetween: 24,
+    // -50% of the track = exactly one group, so the loop point is invisible
+    const anim = track.animate(
+      [{ transform: 'translateX(0)' }, { transform: 'translateX(-50%)' }],
+      { duration, iterations: Infinity, easing: 'linear' }
+    );
 
-          loop: true,
-          speed: 15000,
-          // (cssEase isn't a swiper option, for a constant speed marquee use
-          //  .projects-section-swiper .swiper-wrapper { transition-timing-function: linear; } in app.css)
-          autoplay: {
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          },
-          freeMode: {
-            enabled: true,
-            sticky: false,
-          },
+    // the marquee runs only while nothing is holding it
+    const holds = new Set();
+    const hold = (reason, on) => {
+      on ? holds.add(reason) : holds.delete(reason);
+      holds.size ? anim.pause() : anim.play();
+    };
 
-          on: {
-            touchEnd() {
-              this.autoplay.stop();
-              clearTimeout(resumeTimer);
-              resumeTimer = setTimeout(() => this.autoplay.start(), 2000); // resume after 2s
-            },
-          },
+    const ac = new AbortController(); // one abort() removes every listener below
+    const listen = (target, type, fn, opts) =>
+      target.addEventListener(type, fn, { ...opts, signal: ac.signal });
 
-          breakpoints: {
-            576: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            992: { slidesPerView: 3 },
-          },
-        })
-      );
+    // --- things that pause it -------------------------------------------------
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    hold('reduced-motion', reduceMotion.matches);
+    listen(reduceMotion, 'change', (e) => hold('reduced-motion', e.matches));
+
+    // don't animate (and blur 15px of backdrop-filter) while scrolled out of view
+    // (entries can arrive batched, oldest first, so only the last one reflects the current state)
+    const io = new IntersectionObserver((entries) =>
+      hold('offscreen', !entries[entries.length - 1].isIntersecting)
+    );
+    io.observe(node);
+
+    // pause on mouse hover (touch handled below)
+    listen(node, 'pointerenter', (e) => e.pointerType === 'mouse' && hold('hover', true));
+    listen(node, 'pointerleave', (e) => e.pointerType === 'mouse' && hold('hover', false));
+
+    // pause while a link/button is focused with the keyboard
+    listen(node, 'focusin', (e) => hold('focus', e.target.matches(':focus-visible')));
+    listen(node, 'focusout', () => hold('focus', false));
+
+    // --- drag / flick -----------------------------------------------------------
+    const wrap = (t) => ((t % duration) + duration) % duration;
+    let pressed = false, dragging = false, suppressClick = false;
+    let startX, startTime, lastX, lastT, velocity, loop, raf, resumeTimer;
+
+    listen(node, 'pointerdown', (e) => {
+      if (e.button !== 0) return;
+      hold('press', true); // freeze under the finger so taps land on what you aimed at
+      cancelAnimationFrame(raf);
+      clearTimeout(resumeTimer);
+      hold('coast', false);
+      hold('wait', false);
+      pressed = true;
+      dragging = false;
+      velocity = 0;
+      startX = lastX = e.clientX;
+      lastT = e.timeStamp;
     });
 
-    return () => {
-      clearTimeout(resumeTimer);
-      swipers.forEach((s) => s.destroy());
+    listen(node, 'pointermove', (e) => {
+      if (!pressed) return;
+      if (!dragging) {
+        if (Math.abs(e.clientX - startX) < 6) return; // small movement = still a tap/click
+        dragging = true;
+        startX = e.clientX;
+        startTime = anim.currentTime;
+        loop = track.offsetWidth / 2; // px per full loop
+        node.setPointerCapture(e.pointerId);
+        node.classList.add('is-dragging');
+      }
+      const dt = e.timeStamp - lastT;
+      if (dt > 0) velocity = 0.75 * velocity + 0.25 * ((e.clientX - lastX) / dt); // px/ms
+      lastX = e.clientX;
+      lastT = e.timeStamp;
+      // dragging right moves content right, i.e. rewinds the animation
+      anim.currentTime = wrap(startTime - ((e.clientX - startX) / loop) * duration);
+    });
+
+    // momentum after a flick (what FreeMode did). Velocity decays exponentially and the distance
+    // per frame is integrated exactly, so a janky/slow frame can't make it overshoot.
+    const coast = (v) => {
+      v = Math.max(-3, Math.min(3, v)); // px/ms; cap so a glitchy timestamp can't launch it
+      hold('coast', true);
+      let prev = performance.now();
+      const step = (now) => {
+        const k = Math.exp(-(now - prev) / 300); // velocity falls to 1/e every 300ms
+        prev = now;
+        anim.currentTime = wrap(anim.currentTime - ((v * 300 * (1 - k)) / loop) * duration);
+        v *= k;
+        if (Math.abs(v) > 0.02) raf = requestAnimationFrame(step);
+        else hold('coast', false);
+      };
+      raf = requestAnimationFrame(step);
     };
-  });
+
+    const release = (e) => {
+      if (!pressed) return;
+      pressed = false;
+      if (dragging) {
+        node.classList.remove('is-dragging');
+        suppressClick = true; // a drag must not "click" the link it ended on
+        setTimeout(() => (suppressClick = false));
+        if (e.timeStamp - lastT < 80 && Math.abs(velocity) > 0.05) coast(velocity);
+      }
+      if (e.pointerType !== 'mouse') {
+        // finger / pen: stay put for a moment, then carry on (mouse resumes on mouseleave)
+        hold('wait', true);
+        resumeTimer = setTimeout(() => hold('wait', false), resumeDelay);
+      }
+      hold('press', false);
+    };
+    listen(window, 'pointerup', release);
+    listen(window, 'pointercancel', release);
+
+    listen(node, 'click', (e) => {
+      if (suppressClick) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { capture: true });
+    listen(node, 'dragstart', (e) => e.preventDefault()); // no native image/link ghost-drag
+
+    return {
+      destroy() {
+        ac.abort();
+        io.disconnect();
+        anim.cancel();
+        cancelAnimationFrame(raf);
+        clearTimeout(resumeTimer);
+      },
+    };
+  }
 </script>
 
-<!-- projects section -->
-<section id="projects" class="py-5">
-    <div class="container container-custom">
-        <h1>Projects</h1>
-        <p class="mb-4">Some of the projects I'm involved with.</p>
+<!-- one marquee row. `cards` is rendered twice: the second copy makes the loop seamless -->
+{#snippet row(cards)}
+    <div class="marquee projects-section-card pt-3" use:marquee>
+        <div class="marquee-track">
+            <div class="marquee-group">{@render cards()}</div>
+            <div class="marquee-group" aria-hidden="true">{@render cards()}</div>
+        </div>
     </div>
+{/snippet}
 
-    <div class="swiper projects-section-swiper pt-3">
-        <div class="swiper-wrapper">
-
+<!-- row 1 cards -->
+{#snippet firstRow()}
             <!-- project card 1 -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://raw.githubusercontent.com/Oreo-1/Aru/refs/heads/main/assets/gh/projectaruimg.png" class="card-img-top" alt="Project 1">
                     <div class="card-body">
@@ -86,7 +186,7 @@
             </div>
 
             <!-- project card 2 -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://raw.githubusercontent.com/HainzelK/HantuProject/refs/heads/main/gh/Talle_logo.png" class="card-img-top" alt="Project 2">
                     <div class="card-body">
@@ -112,7 +212,7 @@
             </div>
 
             <!-- project card 3 -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://raw.githubusercontent.com/Gibekkk/GarudaKotak/refs/heads/main/gh-asset/garuda_title.png" class="card-img-top" alt="Project 3">
                     <div class="card-body">
@@ -137,7 +237,7 @@
             </div>
 
             <!-- project card 4 -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://raw.githubusercontent.com/Oreo-1/uc-kiosk/refs/heads/main/OrderHere-Frontend/assets/advs1.png" class="card-img-alternative-alternative" alt="Project 1">
                     <div class="card-body">
@@ -160,19 +260,12 @@
             </div>
 
             <!-- psst add more cards here -->
+{/snippet}
 
-        </div>
-
-        <!-- Navigation & Pagination -->
-    </div>
-
-    <!-- <div class="swiper-pagination mt-3"></div> -->
-
-    <div class="swiper projects-section-swiper pt-3">
-        <div class="swiper-wrapper">
-
+<!-- row 2 cards -->
+{#snippet secondRow()}
             <!-- project card 1 (second row) -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://placehold.co/600x300" class="card-img-top" alt="Project 1">
                     <div class="card-body">
@@ -194,7 +287,7 @@
             </div>
 
             <!-- project card 2 (second row) -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://raw.githubusercontent.com/Oreo-1/sapatellumpanua-web/refs/heads/main/github-raws/l-min.png" class="card-img-top" alt="Project 4">
                     <div class="card-body">
@@ -217,7 +310,7 @@
             </div>
 
             <!-- project card 3 (second row) -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://raw.githubusercontent.com/Oreo-1/Bebek-Kotak/refs/heads/main/assets/gh/gametitle.png" class="card-img-alternative" alt="Project 2">
                     <div class="card-body">
@@ -239,7 +332,7 @@
             </div>
 
             <!-- project card 4 (second row) -->
-            <div class="swiper-slide">
+            <div class="marquee-slide">
                 <div class="card h-100">
                     <img src="https://raw.githubusercontent.com/Javinpro/ALP-Project-JAM-To-Do-List-/refs/heads/main/gh-assets/mockup-img.png" class="card-img-alternative" alt="Project 4">
                     <div class="card-body">
@@ -261,11 +354,17 @@
             </div>
 
             <!-- psst add more cards here -->
+{/snippet}
 
-        </div>
-
-        <!-- Navigation & Pagination -->
+<!-- projects section -->
+<section id="projects" class="py-5">
+    <div class="container container-custom">
+        <h1>Projects</h1>
+        <p class="mb-4">Some of the projects I'm involved with.</p>
     </div>
+
+    {@render row(firstRow)}
+    {@render row(secondRow)}
 
     <!-- <div class="container">
         <div class="text-end">
@@ -279,3 +378,27 @@
     </div> -->
 
 </section>
+
+<style>
+  .marquee {
+    --gap: 24px;
+    --per-view: 1;          /* slides visible at once */
+    container-type: inline-size; /* lets slides size themselves with cqw */
+    overflow: clip;
+    touch-action: pan-y;    /* we handle horizontal drags, the browser keeps vertical scrolling */
+  }
+  @media (min-width: 768px) { .marquee { --per-view: 2; } }
+  @media (min-width: 992px) { .marquee { --per-view: 3; } }
+
+  .marquee:global(.is-dragging) { user-select: none; }
+
+  .marquee-track { display: flex; width: max-content; }
+  .marquee-group { display: flex; flex: none; }
+
+  /* trailing margin (not `gap`) so both groups are exactly the same width */
+  .marquee-slide {
+    flex: none;
+    width: calc((100cqw - (var(--per-view) - 1) * var(--gap)) / var(--per-view));
+    margin-right: var(--gap);
+  }
+</style>

@@ -1,8 +1,12 @@
-// css order: bootstrap -> swiper -> fonts -> app.css
+// css order: bootstrap -> additional js -> fonts -> app.css
+
+// bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'swiper/css';
+
+// fonts
 // import './styles/fonts.css';
 
+// styles
 import './styles/app.css';
 import './styles/leftbar.css'
 

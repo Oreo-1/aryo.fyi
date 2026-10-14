@@ -21,10 +21,6 @@
     --gold-text: #f6df8d;
     --gold-shadow: rgba(212, 175, 55, 0.12);
 
-    /* swiperjs */
-    --swiper-pagination-color: #fefefe; /* Color of the ACTIVE dot */
-    --swiper-pagination-bullet-inactive-color: #8a8a8a; /* Color of INACTIVE dots */
-    --swiper-pagination-bullet-inactive-opacity: 1;
 }
 
 html::-webkit-scrollbar {
@@ -593,7 +589,7 @@ section {
             |__/                                            
 */
 
-.projects-section-swiper .card {
+.projects-section-card .card {
     height: 100%;
     min-height: 500px;
 
@@ -614,7 +610,7 @@ section {
     cursor: default;
 }
 
-.projects-section-swiper .card:hover {
+.projects-section-card .card:hover {
     transform:
         translateY(-10px)
         scale(1.02);
@@ -624,7 +620,7 @@ section {
         0 16px 40px rgba(0, 0, 0, 0.25);
 }
 
-.projects-section-swiper .card-img-top {
+.projects-section-card .card-img-top {
     height: 220px;
 
     object-fit: cover;
@@ -633,7 +629,7 @@ section {
     border-top-right-radius: var(--glass-radius);
 }
 
-.projects-section-swiper .card-img-alternative {
+.projects-section-card .card-img-alternative {
     height: 220px;
 
     object-fit: contain;
@@ -643,7 +639,7 @@ section {
     border-top-right-radius: var(--glass-radius);
 }
 
-.projects-section-swiper .card-img-alternative-alternative {
+.projects-section-card .card-img-alternative-alternative {
     height: 220px;
 
     object-fit: cover;   /* Scale the image to fill the box */
@@ -653,17 +649,17 @@ section {
     border-top-right-radius: var(--glass-radius);
 }
 
-.projects-section-swiper .card-body {
+.projects-section-card .card-body {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
 }
 
-.projects-section-swiper .card-text {
+.projects-section-card .card-text {
     flex-grow: 1;
 }
 
-.projects-section-swiper .badge {
+.projects-section-card .badge {
     background: var(--glass-bg) !important;
     border: 1px solid var(--glass-border);
     padding: 0.5rem 0.8rem;
@@ -672,7 +668,7 @@ section {
     backdrop-filter: var(--glass-blur);
 }
 
-.projects-section-swiper .badge-gold {
+.projects-section-card .badge-gold {
     background: var(--gold-bg) !important;
     border: 1px solid var(--gold-border);
     color: var(--gold-text);
@@ -685,20 +681,20 @@ section {
     box-shadow: 0 4px 14px var(--gold-shadow);
 }
 
-.projects-section-swiper .btn-primary {
+.projects-section-card .btn-primary {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     backdrop-filter: var(--glass-blur);
 }
 
-.projects-section-swiper .btn-outline-secondary {
+.projects-section-card .btn-outline-secondary {
     background: transparent;
     border: 1px solid var(--glass-border);
     color: var(--glass-text);
     backdrop-filter: var(--glass-blur);
 }
 
-.projects-section-swiper .btn:hover {
+.projects-section-card .btn:hover {
     transform:
         translateY(-2px)
         scale(1.03);
@@ -707,7 +703,7 @@ section {
     color: var(--glass-text-hover);
 }
 
-.projects-section-swiper .btn {
+.projects-section-card .btn {
   transition: transform 0.1s ease,
               background 0.1s ease,
               border-color 0.1s ease,

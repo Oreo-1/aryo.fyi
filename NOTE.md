@@ -27,7 +27,7 @@ index.html                 the real html page: meta tags + <div id="app">
 public/                    served as-is: /assets, /files, /fijecraft, favicon
 
 src/
-  main.js                  loads bootstrap / swiper / our css, then starts App.svelte
+  main.js                  loads bootstrap / fonts / our css, then starts App.svelte
   App.svelte               the whole page = one line per section, top to bottom
   styles/app.css           the old style5.css, unchanged (global, like a <link> tag)
   styles/fira-sans.css     the font

@@ -1,4 +1,35 @@
 <script>
+  // ============================================================================
+  // CONFIG
+  // ============================================================================
+  const projects_CONFIG = {
+    scroll: {
+      secondsPerSlide: 15,    // seconds for one card to travel across → bigger = slower
+      resumeDelay: 2000,      // ms a finger/pen waits after lifting off before scrolling resumes
+    },
+
+    drag: {
+      startThreshold: 6,      // px of movement before a press counts as a drag instead of a tap
+      smoothing: 0.25,        // 0–1, how much of each new velocity sample is trusted (lower = snappier)
+      maxVelocity: 3,         // px/ms cap on flick momentum, so a glitch can't launch it
+      friction: 300,          // ms for flick momentum to decay to ~1/e
+      stopVelocity: 0.02,     // px/ms where momentum gives up
+      flickWindow: 80,        // ms: the last move must be this recent to count as a flick
+      minFlickVelocity: 0.05, // px/ms needed on release for momentum to start
+    },
+
+    layout: {
+      gap: '24px',            // space between project cards
+    },
+  };
+  // ============================================================================
+  // END OF CONFIG
+  // ============================================================================
+
+  // flat view of the behaviour settings, so one row can override a single value:
+  //   <div use:marquee={{ secondsPerSlide: 25 }}>
+  const DEFAULTS = { ...projects_CONFIG.scroll, ...projects_CONFIG.drag };
+
   // Infinite, draggable marquee. Replaces Swiper (Autoplay + FreeMode + loop).
   //
   // The auto-scroll is a single Web Animations API `translateX` animation, so it runs on the
@@ -12,10 +43,11 @@
   //       <div class="marquee-group"> ...same slides again (loop copy)... </div>
   //     </div>
   //   </div>
-  function marquee(node, { secondsPerSlide = 15, resumeDelay = 2000 } = {}) {
+  function marquee(node, overrides = {}) {
+    const cfg = { ...DEFAULTS, ...overrides }; // speeds/feel come from projects_CONFIG above
     const track = node.firstElementChild;
     const [group, copy] = track.children;
-    const duration = group.childElementCount * secondsPerSlide * 1000; // ms per full loop
+    const duration = group.childElementCount * cfg.secondsPerSlide * 1000; // ms per full loop
 
     // the copy only exists to make the loop seamless: keep it out of the tab order
     copy.querySelectorAll('a, button').forEach((el) => (el.tabIndex = -1));
@@ -79,7 +111,7 @@
     listen(node, 'pointermove', (e) => {
       if (!pressed) return;
       if (!dragging) {
-        if (Math.abs(e.clientX - startX) < 6) return; // small movement = still a tap/click
+        if (Math.abs(e.clientX - startX) < cfg.startThreshold) return; // small movement = still a tap/click
         dragging = true;
         startX = e.clientX;
         startTime = anim.currentTime;
@@ -88,7 +120,7 @@
         node.classList.add('is-dragging');
       }
       const dt = e.timeStamp - lastT;
-      if (dt > 0) velocity = 0.75 * velocity + 0.25 * ((e.clientX - lastX) / dt); // px/ms
+      if (dt > 0) velocity = (1 - cfg.smoothing) * velocity + cfg.smoothing * ((e.clientX - lastX) / dt); // px/ms
       lastX = e.clientX;
       lastT = e.timeStamp;
       // dragging right moves content right, i.e. rewinds the animation
@@ -98,15 +130,15 @@
     // momentum after a flick (what FreeMode did). Velocity decays exponentially and the distance
     // per frame is integrated exactly, so a janky/slow frame can't make it overshoot.
     const coast = (v) => {
-      v = Math.max(-3, Math.min(3, v)); // px/ms; cap so a glitchy timestamp can't launch it
+      v = Math.max(-cfg.maxVelocity, Math.min(cfg.maxVelocity, v)); // px/ms; cap so a glitchy timestamp can't launch it
       hold('coast', true);
       let prev = performance.now();
       const step = (now) => {
-        const k = Math.exp(-(now - prev) / 300); // velocity falls to 1/e every 300ms
+        const k = Math.exp(-(now - prev) / cfg.friction); // velocity falls to 1/e every `friction` ms
         prev = now;
-        anim.currentTime = wrap(anim.currentTime - ((v * 300 * (1 - k)) / loop) * duration);
+        anim.currentTime = wrap(anim.currentTime - ((v * cfg.friction * (1 - k)) / loop) * duration);
         v *= k;
-        if (Math.abs(v) > 0.02) raf = requestAnimationFrame(step);
+        if (Math.abs(v) > cfg.stopVelocity) raf = requestAnimationFrame(step);
         else hold('coast', false);
       };
       raf = requestAnimationFrame(step);
@@ -119,12 +151,12 @@
         node.classList.remove('is-dragging');
         suppressClick = true; // a drag must not "click" the link it ended on
         setTimeout(() => (suppressClick = false));
-        if (e.timeStamp - lastT < 80 && Math.abs(velocity) > 0.05) coast(velocity);
+        if (e.timeStamp - lastT < cfg.flickWindow && Math.abs(velocity) > cfg.minFlickVelocity) coast(velocity);
       }
       if (e.pointerType !== 'mouse') {
         // finger / pen: stay put for a moment, then carry on (mouse resumes on mouseleave)
         hold('wait', true);
-        resumeTimer = setTimeout(() => hold('wait', false), resumeDelay);
+        resumeTimer = setTimeout(() => hold('wait', false), cfg.resumeDelay);
       }
       hold('press', false);
     };
@@ -153,7 +185,7 @@
 
 <!-- one marquee row. `cards` is rendered twice: the second copy makes the loop seamless -->
 {#snippet row(cards)}
-    <div class="marquee projects-section-card pt-3" use:marquee>
+    <div class="marquee projects-section-card pt-3" use:marquee style:--gap={projects_CONFIG.layout.gap}>
         <div class="marquee-track">
             <div class="marquee-group">{@render cards()}</div>
             <div class="marquee-group" aria-hidden="true">{@render cards()}</div>
@@ -279,8 +311,8 @@
                             <span class="badge bg-secondary"></span>
                         </div>
                         <div class="d-flex gap-2">
-                            <a href="/" on:click|preventDefault class="btn btn-primary btn-sm">soon™</a>
-                            <a href="/" on:click|preventDefault target="_blank" class="btn btn-outline-secondary btn-sm">View Repository (soon™)</a>
+                            <a href="/" onclick={(e) => e.preventDefault()} class="btn btn-primary btn-sm">soon™</a>
+                            <a href="/" onclick={(e) => e.preventDefault()} target="_blank" class="btn btn-outline-secondary btn-sm">View Repository (soon™)</a>
                         </div>
                     </div>
                 </div>
@@ -381,8 +413,7 @@
 
 <style>
   .marquee {
-    --gap: 24px;
-    --per-view: 1;          /* slides visible at once */
+    --per-view: 1;          /* slides visible at once; see the media queries below */
     container-type: inline-size; /* lets slides size themselves with cqw */
     overflow: clip;
     touch-action: pan-y;    /* we handle horizontal drags, the browser keeps vertical scrolling */

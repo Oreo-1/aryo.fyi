@@ -342,6 +342,7 @@ a {
     height: 100vh;
     height: 100dvh;
     z-index: 0;
+    background-color: #121212;
 }
 
 .is-there-a-better-way-to-do-this {

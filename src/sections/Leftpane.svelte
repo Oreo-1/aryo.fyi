@@ -43,7 +43,7 @@
     inert={open ? undefined : ''}
     aria-label="leftbar"
 >
-    <button
+    <!-- <button
         class="leftbar-close"
         type="button"
         onclick={close}
@@ -53,7 +53,7 @@
             stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
             <path d="M6 6l12 12M18 6L6 18" />
         </svg>
-    </button>
+    </button> -->
 
     <div class="leftbar-body">
         <!-- ...there aint nothin here yet -->

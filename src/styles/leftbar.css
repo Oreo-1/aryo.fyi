@@ -16,7 +16,7 @@
 }
 
 /* =========================================
-   Shared Utility Groupings
+   Shared Utility Groupings (the tab and the "x" button)
    ========================================= */
 
 /* Shared Glass Effects */
@@ -27,7 +27,7 @@
 }
 
 /* Shared Button Resets & Flex Centering */
-.leftbar-close,
+/* .leftbar-close, */
 .leftbar-tab {
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
 }
 
 /* Shared Hover States */
-.leftbar-close:hover,
+/* .leftbar-close:hover, */
 .leftbar-tab:hover {
     background: var(--glass-bg-hover);
     border-color: var(--glass-border-hover);
@@ -134,7 +134,7 @@
 
     width: 44px;
     height: 188px;
-    color: #fff;
+    color: #ffffffbe;
 
     border-left: none;
     border-radius: 0 16px 16px 0;

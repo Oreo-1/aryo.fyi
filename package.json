@@ -15,7 +15,6 @@
     "docker:build": "docker build -t aryo-fyi .",
     "clean": "rm -rf dist"
   },
-  "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "bootstrap": "5.3.8",
     "pocketbase": "^0.28.1",

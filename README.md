@@ -23,8 +23,10 @@ made with:
 - [ ] app.css gettin a bit too crowded
 <br>
 
+- [x] optimize the singular bootstrap js
 - [x] or yk what, custom api for like pictures and stuffs
-- [ ] ooh how about left sidebar?
+- [x] ooh how about left sidebar?
+    now that left sidebar is here.. i forgot what to put there.
 
 <br>
 absolutely zero regard for mobile lighthouse performance (i'm sorry)

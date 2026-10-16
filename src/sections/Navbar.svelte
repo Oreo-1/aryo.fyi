@@ -1,6 +1,46 @@
 <script>
   import { onMount } from 'svelte';
-  import 'bootstrap/js/dist/collapse'; // makes data-bs-toggle="collapse" work (mobile menu)
+
+  // ---- mobile menu (replaces bootstrap/js/dist/collapse) ----
+  let open = false;          // drives aria-expanded + .menu-open on the navbar
+  let transitioning = false; // ignore clicks while the height animation runs
+  let menuEl;                // #navbarNav
+
+  function finish() {
+    menuEl.classList.remove('collapsing');
+    menuEl.classList.add('collapse');
+    if (open) menuEl.classList.add('show');
+    menuEl.style.height = '';
+    transitioning = false;
+  }
+
+  function toggleMenu() {
+    if (transitioning) return;
+    transitioning = true;
+    open = !open;
+
+    if (open) {
+      // expand: 0 -> content height
+      menuEl.classList.remove('collapse');
+      menuEl.classList.add('collapsing');
+      menuEl.style.height = '0px';
+      menuEl.style.height = menuEl.scrollHeight + 'px'; // reading scrollHeight forces the reflow
+    } else {
+      // collapse: current height -> 0
+      menuEl.style.height = menuEl.getBoundingClientRect().height + 'px';
+      menuEl.offsetHeight; // force reflow so the transition starts from the current height
+      menuEl.classList.add('collapsing');
+      menuEl.classList.remove('collapse', 'show');
+      menuEl.style.height = '';
+    }
+
+    // if transitions are disabled (e.g. reduced-motion overrides), transitionend never fires
+    if (parseFloat(getComputedStyle(menuEl).transitionDuration) === 0) finish();
+  }
+
+  function onTransitionEnd(e) {
+    if (e.target === menuEl && e.propertyName === 'height') finish();
+  }
 
   onMount(() => {
     // to top of page
@@ -35,23 +75,14 @@
         behavior: "smooth"
       });
     });
-
-    // mobile menu: add/remove .menu-open on the navbar while the menu opens/closes
-    const navbar = document.querySelector(".mica-navbar");
-    const collapse = document.getElementById("navbarNav");
-
-    collapse.addEventListener("show.bs.collapse", function () {
-      navbar.classList.add("menu-open");
-    });
-
-    collapse.addEventListener("hide.bs.collapse", function () {
-      navbar.classList.remove("menu-open");
-    });
   });
 </script>
 
 <!-- navigation bar! -->
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top mica-navbar mt-4">
+<nav
+    class="navbar navbar-expand-sm navbar-dark fixed-top mica-navbar mt-4"
+    class:menu-open={open}
+>
     <div class="container">
 
         <a class="navbar-brand brandstyle" id="yuusha">
@@ -63,10 +94,9 @@
         <button 
             class="navbar-toggler ms-auto border-0 shadow-none"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
+            on:click={toggleMenu}
             aria-controls="navbarNav"
-            aria-expanded="false"
+            aria-expanded={open}
             aria-label="Toggle navigation"
         >
             <img 
@@ -77,7 +107,12 @@
         </button>
 
         <!-- NAV CONTENT -->
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div
+            class="collapse navbar-collapse"
+            id="navbarNav"
+            bind:this={menuEl}
+            on:transitionend={onTransitionEnd}
+        >
             <ul class="navbar-nav mx-auto align-items-sm-center">
 
                 <li class="nav-item">

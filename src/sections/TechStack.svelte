@@ -65,16 +65,9 @@
                 <div class="row g-3">
                     <div class="col-4">
                         <div class="tech-card">
-                            <img src="/assets/icons/typescript-icon.svg"
-                                alt="TypeScript" />
-                            <div class="tech-name">TypeScript</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="tech-card">
-                            <img src="/assets/icons/nodejs-icon.svg"
-                                alt="Node.js" />
-                            <div class="tech-name">Node.js</div>
+                            <img src="/assets/icons/svelte-icon.svg"
+                                alt="Svelte" />
+                            <div class="tech-name">Svelte</div>
                         </div>
                     </div>
                     <div class="col-4">
@@ -82,6 +75,13 @@
                             <img src="/assets/icons/bootstrap-icon.svg"
                                 alt="Bootstrap" />
                             <div class="tech-name">Bootstrap</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="tech-card">
+                            <img src="/assets/icons/nodejs-icon.svg"
+                                alt="Node.js" />
+                            <div class="tech-name">Node.js</div>
                         </div>
                     </div>
 

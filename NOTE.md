@@ -195,7 +195,6 @@ document.getElementById("navWhatever").addEventListener("click", (e) => {
 
 ## notes
 - asset paths start with `/` (`/assets/...`, `/files/...`) because the files live in `public/`.
-- the mobile menu is bootstrap's collapse module (imported in `Navbar.svelte`), driven by the same `data-bs-*` attributes as before.
 - three.js / vanta are loaded lazily in `Background.svelte` so they don't block the first paint.
 - the theme toggle is still hidden (`FIX-SOON` class in app.css).
 - the contact form validates, but the mail api isn't wired yet (see the TODO in `ContactForm.svelte`).

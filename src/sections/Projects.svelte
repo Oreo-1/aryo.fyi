@@ -281,6 +281,7 @@
                         <div class="d-flex gap-2 flex-wrap mb-3">
                             <span class="badge bg-secondary">Laravel</span>
                             <span class="badge bg-secondary">IoT</span>
+                            <span class="badge bg-secondary">n8n</span>
                             <span class="badge bg-secondary">Blockchain</span>
                         </div>
                         <div class="d-flex gap-2">

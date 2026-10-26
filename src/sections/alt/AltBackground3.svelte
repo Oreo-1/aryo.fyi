@@ -1,17 +1,21 @@
+<!-- triangle floating up -->
+
 <script>
   import { onMount } from 'svelte';
 
   // ---- background config ----
   const DARK_MODE = 0x121212;
   const LIGHT_MODE = 0x989898;
-  const ACCENT_A = 0x6c63ff;   // a few triangles + two soft glows; set ACCENT_MIX to 0 for pure greyscale
-  const ACCENT_B = 0x20c3b0;
+  const ACCENT_A = 0xffffff;   // a few triangles + two soft glows; set ACCENT_MIX to 0 for pure greyscale
+  const ACCENT_B = 0xffffff;
   const ACCENT_MIX = 0.5;
   const SPEED = 1.0;
-  const MAX_TRIANGLES = 24;    // phones get ~12, a 1080p screen gets the max
-  const MIN_SIZE = 22;         // px
-  const MAX_SIZE = 180;
+  const MAX_TRIANGLES = 240;    // phones get ~12, a 1080p screen gets the max
+  const MIN_SIZE = 100;         // px
+  const MAX_SIZE = 280;
   const OUTLINE_SHARE = 0.35;  // the rest are filled
+  const TILT = 8;              // max degrees the scene leans toward the cursor; 0 turns it off
+  const DEPTH = 160;           // px of z-spread between the far (small) and near (big) triangles
 
   let root;
   let layer;
@@ -142,14 +146,16 @@
         tone < ACCENT_MIX * 0.3 ? "var(--tri-accent-a)" :
         tone < ACCENT_MIX * 0.6 ? "var(--tri-accent-b)" :
         "var(--tri)";
-      // big ones stay faint so they read as depth, not clutter
-      const fade = 1 - ((size - MIN_SIZE) / (MAX_SIZE - MIN_SIZE)) * 0.35;
+      // big ones sit closer (so they shift more when the scene tilts) and stay faint so they read as depth, not clutter
+      const nearness = (size - MIN_SIZE) / (MAX_SIZE - MIN_SIZE);
+      const z = ((nearness - 0.5) * 2 * DEPTH).toFixed(1);
+      const fade = 1 - nearness * 0.35;
       triangle.style.opacity = ((outline ? 0.35 + Math.random() * 0.3 : 0.14 + Math.random() * 0.18) * fade).toFixed(3);
 
       const rotation = Math.random() * 360;
 
       if (reducedMotion.matches) {
-        triangle.style.transform = `translate3d(0, ${Math.random() * height}px, 0) rotate(${rotation}deg)`;
+        triangle.style.transform = `translate3d(0, ${Math.random() * height}px, ${z}px) rotate(${rotation}deg)`;
         return triangle;
       }
 
@@ -167,7 +173,7 @@
         const t = k / 12;
         const dx = sway * Math.sin(phase + t * Math.PI * 2 * swayWaves);
         const y = startY + (endY - startY) * t;
-        return { transform: `translate3d(${dx.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${(rotation + spin * t).toFixed(1)}deg)` };
+        return { transform: `translate3d(${dx.toFixed(1)}px, ${y.toFixed(1)}px, ${z}px) rotate(${(rotation + spin * t).toFixed(1)}deg)` };
       });
 
       triangle.animate(keyframes, {
@@ -196,6 +202,38 @@
       }
     }
 
+    // ---- cursor tilt ----
+    // At most one style write per frame; the CSS transition on .layer does the smoothing on the compositor.
+    let tiltFrame = 0;
+    let tiltX = 0;
+    let tiltY = 0;
+
+    function applyTilt() {
+      tiltFrame = 0;
+      layer.style.transform = `rotateX(${(-tiltY * TILT * 0.75).toFixed(2)}deg) rotateY(${(tiltX * TILT).toFixed(2)}deg)`;
+    }
+
+    function setTilt(x, y) {
+      tiltX = x;
+      tiltY = y;
+      if (!tiltFrame) tiltFrame = requestAnimationFrame(applyTilt);
+    }
+
+    function onPointerMove(e) {
+      // touch has no hover position, and tilting while scrolling would just be noise
+      if (!TILT || e.pointerType === "touch" || reducedMotion.matches) return;
+      setTilt((e.clientX / innerWidth) * 2 - 1, (e.clientY / innerHeight) * 2 - 1);
+    }
+
+    function onPointerLeave() {
+      setTilt(0, 0);
+    }
+
+    function onMotionPreference() {
+      setTilt(0, 0);
+      build();
+    }
+
     function onResize() {
       // ignore the small height changes from mobile URL bars; rebuild on real resizes / rotation
       const widthChanged = root.clientWidth !== width;
@@ -209,14 +247,19 @@
 
     build();
     resizeObserver.observe(root);
-    reducedMotion.addEventListener("change", build);
+    reducedMotion.addEventListener("change", onMotionPreference);
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onPointerLeave);
 
     return {
       setColor,
       destroy() {
         clearTimeout(resizeTimer);
+        cancelAnimationFrame(tiltFrame);
         resizeObserver.disconnect();
-        reducedMotion.removeEventListener("change", build);
+        reducedMotion.removeEventListener("change", onMotionPreference);
+        window.removeEventListener("pointermove", onPointerMove);
+        document.documentElement.removeEventListener("mouseleave", onPointerLeave);
         layer.replaceChildren();
       },
     };
@@ -254,6 +297,7 @@
     z-index: -1;
     overflow: hidden;
     pointer-events: none;
+    perspective: 900px;
     transition: background-color 225ms ease;
     /* static, painted once: gives the glass a bit of color to diffuse */
     background-image:
@@ -264,6 +308,8 @@
   .layer {
     position: absolute;
     inset: 0;
+    transform-style: preserve-3d; /* keeps each triangle's depth, so tilting gives real parallax */
+    transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   /* the triangles are created in JS, so the selector has to be global */

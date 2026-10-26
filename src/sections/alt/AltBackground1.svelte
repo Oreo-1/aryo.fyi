@@ -1,11 +1,13 @@
+<!-- smoke haze marble thing effect -->
+
 <script>
   import { onMount } from 'svelte';
 
   // ---- background config ----
   const DARK_MODE = 0x121212;
   const LIGHT_MODE = 0x989898;
-  const ACCENT_A = 0x6c63ff;   // tints that bleed through the glass; set ACCENT_MIX to 0 for pure greyscale
-  const ACCENT_B = 0x20c3b0;
+  const ACCENT_A = 0x000000;   // tints that bleed through the glass; set ACCENT_MIX to 0 for pure greyscale
+  const ACCENT_B = 0x000000;
   const ACCENT_MIX = 0.35;
   const SPEED = 1.0;
   const RENDER_SCALE = 0.35;   // the field is soft, so render it small and let CSS upscale it

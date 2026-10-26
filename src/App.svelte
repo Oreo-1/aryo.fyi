@@ -5,7 +5,7 @@
   // import fixed components
   import Navbar from './sections/Navbar.svelte';
   import Leftpane from './sections/Leftpane.svelte';
-  import Background from './sections/Background.svelte';
+  import Background from './sections/alt/AltBackground3.svelte';
 
   // import page components
   import Hero from './sections/Hero.svelte';

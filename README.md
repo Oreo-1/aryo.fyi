@@ -27,6 +27,9 @@ made with:
 - [x] or yk what, custom api for like pictures and stuffs
 - [x] ooh how about left sidebar?
     now that left sidebar is here.. i forgot what to put there.
+- [ ] change the profile pic place to better match the triangle aesthethic
+- [ ] add a poppable bubble for each of the component (as a more info)
+- [x] add function to mimic bootstrap scrollspy
 
 <br>
 absolutely zero regard for mobile lighthouse performance (i'm sorry)

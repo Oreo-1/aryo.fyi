@@ -209,7 +209,8 @@ a {
     transition: transform 0.25s ease;
 }
 
-.mica-navbar .navnavnav:hover::after {
+/* .mica-navbar .navnavnav:hover::after, */
+.mica-navbar .navnavnav.active::after {
     transform: scaleX(1);
 }
 

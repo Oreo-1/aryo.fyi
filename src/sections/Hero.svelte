@@ -168,8 +168,8 @@
 <section class="vh-100 d-flex align-items-center justify-content-center text-center" style="position: relative; z-index: 2;" id="initial-pt">
 
     <div class="container"> 
-        <div class="row align-items-center justify-content-between text-md-start">
-            <div class="col-12 col-md-6">
+        <div class="row align-items-center justify-content-center text-md-start">
+            <div class="col-12 col-md-5">
                 <h1 class="display-2 fw-bold kewl-gradient-text">Aryo Karel M.</h1>
                 <!-- <p class="fs-4 fw-bold">Operating System | Fullstack Developer | UI/UX Designer</p> -->
                 <div class="cycling-text-wrapper">

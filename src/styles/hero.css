@@ -1,15 +1,21 @@
 
 /* profile frame: glass disc + triangle bezel + floating shards.
    every layer is a direct child of .tilt-card, so its translateZ is the parallax depth */
+
+/* profile frame depths: further out = moves more when tilting */
+.profile-frame > .frame-orbit     { transform: translateZ(4px); }
+.profile-frame > .frame-bezel     { transform: translateZ(10px); }
+.profile-frame > .frame-tri-small { transform: translateZ(30px); }
+.profile-frame > .frame-shard     { transform: translateZ(42px); }
+.profile-frame > .frame-tri-big   { transform: translateZ(56px); }
+.profile-frame > .frame-tri-tiny  { transform: translateZ(70px); }
+
 .profile-frame {
     position: relative;
     width: min(400px, 76vw);
     aspect-ratio: 1 / 1;
     padding: 0;
-    margin: 0 auto;
 }
-
-
 
 .profile-img-wrapper {
     position: absolute;

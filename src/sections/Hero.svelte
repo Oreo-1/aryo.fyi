@@ -2,14 +2,13 @@
   import { onMount } from 'svelte';
   import { pb } from '../pocketbase.js';
 
-  // profile frame bezel: triangles around the photo, every 9th one is bigger
-  const BEZEL_TICKS = 36;
-  const MAJOR_TICK = "0,-52.2 -2.2,-56 2.2,-56"; // points at the center, in % of the frame
-  // const MINOR_TICK = "0,-54.4 -0.9,-56 0.9,-56";
-  const bezelTicks = Array.from({ length: BEZEL_TICKS }, (_, i) => ({
-    angle: (i * 360) / BEZEL_TICKS,
-    major: i % 9 === 0,
-  })).filter((t) => t.major);
+  // profile frame bezel: triangles evenly spaced around the photo, pointing at the center
+  const BEZEL_TICKS = 4;
+  const BEZEL_TICK = "0,-52.2 -2.2,-56 2.2,-56"; // in % of the frame
+  const bezelAngles = Array.from({ length: BEZEL_TICKS }, (_, i) => (i * 360) / BEZEL_TICKS);
+  // the ring is drawn as arcs between the triangles; this is the gap around each triangle, in degrees
+  const BEZEL_GAP = 14;
+  const bezelArcs = `0 ${BEZEL_GAP / 2} ${360 / BEZEL_TICKS - BEZEL_GAP} ${BEZEL_GAP / 2}`;
 
   onMount(() => {
     (async () => {
@@ -165,7 +164,7 @@
 
 
 <!-- lowkey a bit hacky -->
-<section class="vh-100 d-flex align-items-center justify-content-center text-center" style="position: relative; z-index: 2;" id="initial-pt">
+<section class="vh-100 d-flex align-items-center justify-content-center text-center" id="initial-pt">
 
     <div class="container"> 
         <div class="row align-items-center justify-content-center text-md-start">
@@ -191,13 +190,13 @@
 
                 <p class="fs-3 fw-bold mt-5">Find me on</p>
                 <div class="d-flex justify-content-center justify-content-md-start gap-3 mt-3 social-icons-wrapper">
-                    <a href="https://www.linkedin.com/in/aryo-karel-merentek/" target="_blank" class="social-icon" alt="linkedin-icon">
+                    <a href="https://www.linkedin.com/in/aryo-karel-merentek/" target="_blank" class="social-icon">
                         <img src="/assets/icons/linkedin-icon.svg" alt="linkedin-icon">
                     </a>
                     <a href="https://instagram.com/aryo.km" target="_blank" class="social-icon">
                         <img src="/assets/icons/Instagram_logo_2016.svg" alt="instagram-icon">
                     </a>
-                    <a href="https://github.com/Oreo-1" target="_blank" class="social-icon" alt="github-icon">
+                    <a href="https://github.com/Oreo-1" target="_blank" class="social-icon">
                         <img src="/assets/icons/github-icon.svg" class="invert-color" alt="github-icon">
                     </a>
                 </div>
@@ -209,25 +208,19 @@
                 data-tilt-scale="1.04"
                 data-tilt-smooth="0.12">
 
-                <!-- dashed outer orbit, spins backwards -->
-                <div class="frame-layer frame-orbit" aria-hidden="true">
+                <!-- bezel: a ring with triangles pointing at the photo -->
+                <div class="frame-bezel" aria-hidden="true">
                     <svg viewBox="-62 -62 124 124">
-                        <circle r="60.5" />
-                    </svg>
-                </div>
-
-                <!-- bezel of tiny triangles pointing at the photo -->
-                <div class="frame-layer frame-bezel" aria-hidden="true">
-                    <svg viewBox="-62 -62 124 124">
-                        <circle r="57.5" />
-                        {#each bezelTicks as tick}
-                            <polygon class:major={tick.major} points={MAJOR_TICK} transform="rotate({tick.angle})" />
+                        <!-- pathLength 360 = dash units are degrees; rotate(-90) starts the circle at the top triangle -->
+                        <circle r="57.5" pathLength="360" stroke-dasharray={bezelArcs} transform="rotate(-90)" />
+                        {#each bezelAngles as angle}
+                            <polygon points={BEZEL_TICK} transform="rotate({angle})" />
                         {/each}
                     </svg>
                 </div>
 
                 <div class="profile-img-wrapper">
-                    <img id="profile-photo" src="/assets/cat-loading-hgb.gif" class="rounded-profile-img mx-auto d-block" alt="me">
+                    <img id="profile-photo" src="/assets/cat-loading-hgb.gif" class="rounded-profile-img" alt="me">
                 </div>
 
                 <!-- frosted glass shard over the bottom-left edge -->

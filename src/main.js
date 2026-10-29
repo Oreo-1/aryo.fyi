@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // styles
 import './styles/app.css';
+import './styles/hero.css';
 import './styles/leftbar.css'
 
 import { mount } from 'svelte';

@@ -1,7 +1,16 @@
 <script>
   import { onMount } from 'svelte';
   import { pb } from '../pocketbase.js';
- 
+
+  // profile frame bezel: triangles around the photo, every 9th one is bigger
+  const BEZEL_TICKS = 36;
+  const MAJOR_TICK = "0,-52.2 -2.2,-56 2.2,-56"; // points at the center, in % of the frame
+  // const MINOR_TICK = "0,-54.4 -0.9,-56 0.9,-56";
+  const bezelTicks = Array.from({ length: BEZEL_TICKS }, (_, i) => ({
+    angle: (i * 360) / BEZEL_TICKS,
+    major: i % 9 === 0,
+  })).filter((t) => t.major);
+
   onMount(() => {
     (async () => {
       try { // 'aryofyi' collection, items[0].hero_image
@@ -159,7 +168,7 @@
 <section class="vh-100 d-flex align-items-center justify-content-center text-center" style="position: relative; z-index: 2;" id="initial-pt">
 
     <div class="container"> 
-        <div class="row align-items-center justify-content-center text-md-start">
+        <div class="row align-items-center justify-content-between text-md-start">
             <div class="col-12 col-md-6">
                 <h1 class="display-2 fw-bold kewl-gradient-text">Aryo Karel M.</h1>
                 <!-- <p class="fs-4 fw-bold">Operating System | Fullstack Developer | UI/UX Designer</p> -->
@@ -193,12 +202,58 @@
                     </a>
                 </div>
             </div>
-            <div class="col-12 col-md-4 justify-content-center profile-img-wrapper tilt-card"
+            <!-- profile frame: each layer sits at its own depth (translateZ), so the tilt gives parallax -->
+            <div class="col-12 col-md-4 profile-frame tilt-card"
                 data-tilt
                 data-tilt-max="14"
                 data-tilt-scale="1.04"
                 data-tilt-smooth="0.12">
-                <img id="profile-photo" src="/assets/cat-loading-hgb.gif" class="rounded-profile-img mx-auto d-block" alt="me">
+
+                <!-- dashed outer orbit, spins backwards -->
+                <div class="frame-layer frame-orbit" aria-hidden="true">
+                    <svg viewBox="-62 -62 124 124">
+                        <circle r="60.5" />
+                    </svg>
+                </div>
+
+                <!-- bezel of tiny triangles pointing at the photo -->
+                <div class="frame-layer frame-bezel" aria-hidden="true">
+                    <svg viewBox="-62 -62 124 124">
+                        <circle r="57.5" />
+                        {#each bezelTicks as tick}
+                            <polygon class:major={tick.major} points={MAJOR_TICK} transform="rotate({tick.angle})" />
+                        {/each}
+                    </svg>
+                </div>
+
+                <div class="profile-img-wrapper">
+                    <img id="profile-photo" src="/assets/cat-loading-hgb.gif" class="rounded-profile-img mx-auto d-block" alt="me">
+                </div>
+
+                <!-- frosted glass shard over the bottom-left edge -->
+                <div class="frame-accent frame-shard" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <polygon points="2,98 98,74 36,4" />
+                    </svg>
+                </div>
+
+                <div class="frame-accent frame-tri-big" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <polygon points="50,6 96,86 4,86" transform="rotate(14 50 60)" />
+                    </svg>
+                </div>
+
+                <div class="frame-accent frame-tri-small" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <polygon points="50,6 96,86 4,86" transform="rotate(-24 50 60)" />
+                    </svg>
+                </div>
+
+                <div class="frame-accent frame-tri-tiny" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <polygon points="50,6 96,86 4,86" transform="rotate(200 50 60)" />
+                    </svg>
+                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,268 @@
+
+/* profile frame: glass disc + triangle bezel + floating shards.
+   every layer is a direct child of .tilt-card, so its translateZ is the parallax depth */
+.profile-frame {
+    position: relative;
+    width: min(400px, 76vw);
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    margin: 0 auto;
+}
+
+
+
+.profile-img-wrapper {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 5%;
+}
+
+.frame-layer,
+.frame-accent {
+    position: absolute;
+    pointer-events: none;
+}
+
+.frame-layer {
+    inset: -12%; /* svg viewBox is -62..62, so 1 unit = 1% of the frame */
+}
+
+.frame-layer svg,
+.frame-accent svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* the svg roots spin, not the shapes inside: keeps it on the compositor */
+.frame-bezel svg {
+    animation: frame-spin 90s linear infinite;
+}
+
+.frame-orbit svg {
+    animation: frame-spin 140s linear infinite reverse;
+}
+
+.frame-bezel {
+    opacity: 0.75;
+    transition: opacity 300ms ease;
+}
+
+.profile-frame.is-hovering .frame-bezel {
+    opacity: 1;
+}
+
+.frame-bezel circle,
+.frame-orbit circle {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.28);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+}
+
+.frame-orbit circle {
+    stroke: rgba(255, 255, 255, 0);
+    stroke-dasharray: 2 6;
+    stroke-linecap: round;
+}
+
+.frame-bezel polygon {
+    fill: rgba(255, 255, 255, 0.35);
+}
+
+.frame-bezel polygon.major {
+    fill: rgba(255, 255, 255, 0.85);
+}
+
+/* frosted shard: the glass lives in ::before (clip-path), the svg draws the edge on top */
+.frame-shard {
+    left: -9%;
+    bottom: -7%;
+    width: 36%;
+    aspect-ratio: 1 / 1;
+}
+
+.frame-shard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(2% 98%, 98% 74%, 36% 4%);
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04) 70%);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+}
+
+.frame-shard polygon {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.4);
+    stroke-width: 1;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.frame-tri-big {
+    top: -8%;
+    right: -9%;
+    width: 27%;
+    aspect-ratio: 1 / 1;
+}
+
+.frame-tri-big polygon {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.6);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.frame-tri-small {
+    top: 1%;
+    left: 1%;
+    width: 10%;
+    aspect-ratio: 1 / 1;
+}
+
+.frame-tri-small polygon {
+    fill: rgba(255, 255, 255, 0.55);
+}
+
+.frame-tri-tiny {
+    right: -1%;
+    bottom: 13%;
+    width: 7%;
+    aspect-ratio: 1 / 1;
+}
+
+.frame-tri-tiny polygon {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 1.25;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.frame-tri-big svg   { animation: frame-float 7s ease-in-out infinite; }
+.frame-tri-small svg { animation: frame-float 5.5s ease-in-out -2s infinite; }
+.frame-tri-tiny svg  { animation: frame-float 6.5s ease-in-out -4s infinite reverse; }
+
+@keyframes frame-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes frame-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-8%) rotate(6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .frame-layer svg,
+    .frame-accent svg {
+        animation: none;
+    }
+}
+
+.rounded-profile-img {
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+@media (max-width: 576px) {
+    .rounded-profile-img{
+        height: auto;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+    };
+}
+
+/*       
+  _  _             
+ | || |___ _ _ ___ 
+ | __ / -_) '_/ _ \
+ |_||_\___|_| \___/
+                                                         
+*/
+
+/* anak_alim.png */
+#profile-photo {
+  transition: opacity 0.5s ease;
+}
+
+.social-icon img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.93;
+
+    transform: translateY(0);
+    transition: transform 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
+
+}
+
+.social-icon img:hover {
+    transform: translateY(-5px)
+}
+
+@media (max-width: 576px) {
+    .social-icons-wrapper{
+        margin-bottom: 5vh;
+    }
+    #skillset { /* coal alert? */
+        margin-top: 10vh;
+    }
+}
+
+.kewl-gradient-text {
+    background: linear-gradient(20deg, #ffffff, #b6b6b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* cycling text, dev portfolio 101 */
+.cycling-text-wrapper {
+  position: relative;
+  height: 60px;
+  overflow: hidden;
+}
+
+.cycling-text {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+
+  opacity: 0;
+  transform: translateY(20px);
+
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.cycling-text.c-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cycling-text.c-exit {
+  opacity: 0;
+  transform: translateY(-20px);
+}

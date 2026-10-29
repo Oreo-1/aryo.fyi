@@ -358,114 +358,16 @@ section {
     z-index: 2;
 }
 
-.profile-img-wrapper {
-    border-radius: 50%;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: var(--glass-blur);
-    width: 400px;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 20px
-}
-
-.rounded-profile-img {
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    height: 100%;
-    width: 100%;
-}
-
-@media (max-width: 576px) {
-    .rounded-profile-img{
-        height: auto;
-        width: 100%;
-        aspect-ratio: 1 / 1;
-    };
-}
-
 /*       
   _  _             
  | || |___ _ _ ___ 
  | __ / -_) '_/ _ \
  |_||_\___|_| \___/
-                                                         
+
+ moved to hero.css
+ 
 */
 
-/* anak_alim.png */
-#profile-photo {
-  transition: opacity 0.5s ease;
-}
-
-.social-icon img {
-    display: block;
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    opacity: 0.93;
-
-    transform: translateY(0);
-    transition: transform 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
-
-}
-
-.social-icon img:hover {
-    transform: translateY(-5px)
-}
-
-@media (max-width: 576px) {
-    .social-icons-wrapper{
-        margin-bottom: 5vh;
-    }
-    #skillset { /* coal alert? */
-        margin-top: 10vh;
-    }
-}
-
-.kewl-gradient-text {
-    background: linear-gradient(20deg, #ffffff, #b6b6b6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* cycling text, dev portfolio 101 */
-.cycling-text-wrapper {
-  position: relative;
-  height: 60px;
-  overflow: hidden;
-}
-
-.cycling-text {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-
-  opacity: 0;
-  transform: translateY(20px);
-
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.cycling-text.c-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.cycling-text.c-exit {
-  opacity: 0;
-  transform: translateY(-20px);
-}
 
 /*
   ___ _   _ _ _   ___      _   
@@ -1022,9 +924,7 @@ section {
 .tilt-card {
   transform-style: preserve-3d;
   will-change: transform;
-  transition: box-shadow 180ms ease, transform 200ms cubic-bezier(.2,.9,.2,1);
-  /* optional: pop shadow when hovering */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: transform 200ms cubic-bezier(.2,.9,.2,1);
 }
 .profile-img-wrapper { /* if you want shadows to overflow */
   overflow: visible; /* remove if you need perfect circular clipping */
@@ -1033,4 +933,12 @@ section {
   transform: translateZ(16px);
   backface-visibility: hidden;
 }
+
+/* profile frame depths: further out = moves more when tilting */
+.profile-frame > .frame-orbit     { transform: translateZ(4px); }
+.profile-frame > .frame-bezel     { transform: translateZ(10px); }
+.profile-frame > .frame-tri-small { transform: translateZ(30px); }
+.profile-frame > .frame-shard     { transform: translateZ(42px); }
+.profile-frame > .frame-tri-big   { transform: translateZ(56px); }
+.profile-frame > .frame-tri-tiny  { transform: translateZ(70px); }
 
